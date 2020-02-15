@@ -6,3 +6,8 @@ packages
 bin
 obj
 .suo
+
+/* Umbraco */
+Umbraco
+Temp
+Logs
