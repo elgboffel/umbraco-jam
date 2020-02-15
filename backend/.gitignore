@@ -1,0 +1,8 @@
+/* IDE */
+.idea
+
+/* ASP.NET Framework */
+packages
+bin
+obj
+.suo

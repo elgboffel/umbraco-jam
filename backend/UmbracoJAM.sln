@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project", "Project", "{217FDF59-0858-4F6F-A8A6-B302E2422C86}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Foundation", "Foundation", "{9BCEF6D8-0693-4AA0-A04E-47C4AA71DB39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Feature", "Feature", "{0AD58B6E-A800-4309-A86B-D1529BB3C8C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UmbracoJAM", "UmbracoJAM", "{62BF30A6-A07C-461F-B704-1096C6542A4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoJAM.Project.Web", "src\Project\UmbracoJAM\code\UmbracoJAM.Project.Web.csproj", "{51DE4AAC-CA3E-44E5-ABA6-6D951344C75D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {438CB989-4BD2-4181-BD23-376F40E0A2B9}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{62BF30A6-A07C-461F-B704-1096C6542A4B} = {217FDF59-0858-4F6F-A8A6-B302E2422C86}
+		{51DE4AAC-CA3E-44E5-ABA6-6D951344C75D} = {62BF30A6-A07C-461F-B704-1096C6542A4B}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{51DE4AAC-CA3E-44E5-ABA6-6D951344C75D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51DE4AAC-CA3E-44E5-ABA6-6D951344C75D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51DE4AAC-CA3E-44E5-ABA6-6D951344C75D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51DE4AAC-CA3E-44E5-ABA6-6D951344C75D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
