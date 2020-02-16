@@ -11,3 +11,6 @@ obj
 Umbraco
 Temp
 Logs
+cache
+Models
+Media

@@ -350,7 +350,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="Controllers\HeadlessController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -411,6 +410,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data" />
+    <Folder Include="Controllers" />
     <Folder Include="Models" />
   </ItemGroup>
   <ItemGroup>
@@ -426,6 +426,12 @@
     <None Include="Config\uSync8.config" />
     <None Include="Media\Web.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Feature\Headless\code\UmbracoJAM.Feature.Headless.csproj">
+      <Project>{320c2c42-23ec-45e0-b6c5-0c9063245b95}</Project>
+      <Name>UmbracoJAM.Feature.Headless</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
