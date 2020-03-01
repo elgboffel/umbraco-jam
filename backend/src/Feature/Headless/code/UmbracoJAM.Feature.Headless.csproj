@@ -299,7 +299,7 @@
     <Compile Include="Examine\ExamineComposer.cs" />
     <Compile Include="Examine\ExamineEvents.cs" />
     <Compile Include="Examine\ExamineSearchers.cs" />
-    <Compile Include="Mappers\ContentMapper.cs" />
+    <Compile Include="Mappers\UmbracoContentMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -20,12 +20,13 @@ namespace UmbracoJAM.Feature.Headless.Controllers
     {
         private readonly ISearcher _searcher;
         private readonly UmbracoContextReference _context;
-        private readonly string[] _propertiesToExclude = { "ChildrenForAllCultures", "Children", "Parent" };
+        private readonly UmbracoContentMapper _contentMapper;
 
         public HeadlessController(IUmbracoContextFactory context)
         {
             _context = context.EnsureUmbracoContext() ?? throw new Exception("UmbracoContext not found");
             _searcher =  ExamineSearchers.GetExternalIndexSearcher() ?? throw new Exception("ExternalIndex not found");
+            _contentMapper = new UmbracoContentMapper(Umbraco);
         }
         
         
@@ -45,7 +46,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
             if (content == null) 
                 throw new NoNullAllowedException(nameof(content));
 
-            var mappedContent = content.MapPublishedContent(Umbraco);
+            var mappedContent = _contentMapper.MapPublishedContent(content);
 
             return Json(mappedContent);
         }
@@ -67,7 +68,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
             if (content == null) 
                 throw new NoNullAllowedException(nameof(content));
             
-            var mappedContent = content.MapPublishedContent(Umbraco);
+            var mappedContent = _contentMapper.MapPublishedContent(content);
 
             return Json(mappedContent);
         }
@@ -88,7 +89,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
 
             var contentList = contentAtRoot
                 .DescendantsOrSelf<IPublishedContent>()
-                .Select(x => x.MapPublishedContent(Umbraco));
+                .Select(x => _contentMapper.MapPublishedContent(x));
 
             return Json(contentList);
         }
