@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using HtmlAgilityPack;
@@ -58,7 +59,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                         value = MapUdisToPath(ConvertNestedContentSourceValueToObject(sourceValue) as JToken, _helper);
                         break;
                     case var x when IsHtml(sourceValue):
-                        value = sourceValue;
+                        value = MapUdiInHtml(sourceValue);
                         break;
                     case var x when (sourceValue.Contains("umb://media")):
                         value = GetUmbracoMedia(_helper, sourceValue);
@@ -158,6 +159,26 @@ namespace UmbracoJAM.Feature.Headless.Mappers
         private static bool HtmlIsJustText(HtmlNode rootNode)
         {
             return rootNode.Descendants().All(n => n.NodeType == HtmlNodeType.Text);
+        }
+        
+        private static string MapUdiInHtml(string html)
+        {
+            var doc = new HtmlDocument();
+            doc.LoadHtml(html);
+
+            foreach (var link in doc.DocumentNode.SelectNodes("//a[@href]"))
+            {
+                var att = link.Attributes["href"];
+                att.Value = "prut";
+            }
+
+            foreach (var link in doc.DocumentNode.SelectNodes("//img[@src]"))
+            {
+                var att = link.Attributes["src"];
+                att.Value = "prut";
+            }
+
+            return doc.ParsedText;
         }
     }
 }
