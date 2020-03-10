@@ -1,6 +1,6 @@
-﻿import serializeData from "../serialize-data";
+﻿const { serializeData } = require("../serialize-data");
 
-export function generateFrontmatter(format, data) {
+exports.generateFrontmatter = (format: string, data: object) =>{
     if (data) {
         switch (format) {
             case "yaml":
