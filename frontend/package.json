@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "markdown": "ts-node ./umbraco-markdown",
+    "markdown": "ts-node ./build/umbraco-markdown",
     "dev": "next",
-    "build": "next build && next export",
-    "build:markdown": "node ",
+    "build": "npm run markdown && next build && next export",
+    "build:markdown": "npm run markdown",
     "serve": "serve out"
   },
   "keywords": [],
@@ -21,6 +21,7 @@
     "mkdirp": "^1.0.3",
     "next": "^9.1.6",
     "next-compose-plugins": "^2.2.0",
+    "node-fetch": "^2.6.0",
     "node-sass": "^4.13.0",
     "raw-loader": "^4.0.0",
     "serve": "^11.2.0",

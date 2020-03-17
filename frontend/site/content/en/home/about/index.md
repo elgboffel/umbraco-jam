@@ -1,24 +1,25 @@
 ---
-Id: 1065
-Name: About
-UrlSegment: about
-SortOrder: 1
-Level: 4
-Path: '-1,1061,1062,1064,1065'
-TemplateId: 0
-CreatorId: -1
-CreatorName: Johnny Kristensen
-CreateDate: '2020-02-16T13:21:11.503Z'
-WriterId: -1
-WriterName: Johnny Kristensen
-UpdateDate: '2020-03-01T10:53:47.83Z'
-Url: /en/home/about/
-Cultures:
+id: 1065
+name: About
+urlSegment: about
+sortOrder: 1
+level: 4
+path: '-1,1061,1062,1064,1065'
+templateId: 0
+creatorId: -1
+creatorName: Johnny Kristensen
+createDate: '2020-02-16T13:21:11.503Z'
+writerId: -1
+writerName: Johnny Kristensen
+updateDate: '2020-03-01T10:53:47.83Z'
+url: /en/home/about/
+cultures:
   '':
-    Culture: ''
-    Date: '2020-02-16T13:21:11.503Z'
-ItemType: 2
-media: local.umbraco-jam.dk/media/0ggbawpt/538890_3892074028480_1176103828_n.jpg
+    culture: ''
+    date: '2020-02-16T13:21:11.503Z'
+itemType: 2
+template: Article
+media: 'http://local.umbraco-jam.dk/media/0ggbawpt/538890_3892074028480_1176103828_n.jpg'
 heading: About
 lead: Lead
 bodyText: |-
@@ -44,12 +45,12 @@ ribbons:
       - key: d8371c9a-f25b-4beb-be5b-008fd44621c2
         name: Item 1
         ncContentTypeAlias: slide
-        media: local.umbraco-jam.dk/media/0ggbawpt/538890_3892074028480_1176103828_n.jpg
+        media: 'http://local.umbraco-jam.dk/media/0ggbawpt/538890_3892074028480_1176103828_n.jpg'
         text: Bøøøøh
       - key: 0ae51f5a-fbae-4ead-9848-08a383eb2d2e
         name: Item 2
         ncContentTypeAlias: slide
-        media: local.umbraco-jam.dk/media/ipbfxpmq/vandhund.jpg
+        media: 'http://local.umbraco-jam.dk/media/ipbfxpmq/vandhund.jpg'
         text: Vuf
 sinlgeUrlPicker:
   - name: Home

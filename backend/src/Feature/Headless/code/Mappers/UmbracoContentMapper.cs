@@ -34,6 +34,10 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 .Where(property => !propertiesToExclude.Contains(property.Name))
                 .ToDictionary(property => property.Name, property => property.GetValue(content, null));
 
+            var templateAlias = content.ContentType.Alias;
+            
+            properties.Add("template", char.ToUpper(templateAlias[0]) + templateAlias.Substring(1));
+            
             if (!content.Properties.Any()) return properties;
 
             var umbracoProperties = MapUmbracoProperties(content.Properties);
@@ -126,7 +130,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
         {
             var media = helper.Media(value);
 
-            return media == null ? string.Empty : $"{HttpContext.Current.Request.Url.Host}{media.Url}";
+            return media == null ? string.Empty : $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Host}{media.Url}";
         }        
         
         private string GetUmbracoContent(string value, UmbracoHelper helper)

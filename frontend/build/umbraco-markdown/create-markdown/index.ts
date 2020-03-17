@@ -1,4 +1,4 @@
-﻿// @ts-ignore
+﻿﻿// @ts-ignore
 const fs = require("fs");
 const { siteConstants } = require("../constants");
 const { generateFrontmatter } = require("../generate-frontmatter");

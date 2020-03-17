@@ -1,4 +1,4 @@
-﻿const { serializeData } = require("../serialize-data");
+﻿﻿const { serializeData } = require("../serialize-data");
 
 exports.generateFrontmatter = (format: string, data: object) =>{
     if (data) {

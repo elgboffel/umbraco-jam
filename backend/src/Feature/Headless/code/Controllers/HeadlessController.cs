@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web.Http.Results;
 using System.Web.Mvc;
 using Examine;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -16,6 +18,7 @@ using UmbracoJAM.Feature.Headless.Mappers;
 namespace UmbracoJAM.Feature.Headless.Controllers
 {
     [PluginController("Api")]
+    [JsonCamelCaseFormatter]
     public class HeadlessController : UmbracoApiController
     {
         private readonly ISearcher _searcher;
@@ -35,7 +38,6 @@ namespace UmbracoJAM.Feature.Headless.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [CacheControl(MaxAge = 60)]
         public JsonResult<Dictionary<string, object>> GetContentById(string id)
         {
             if (string.IsNullOrEmpty(id)) 
@@ -57,7 +59,6 @@ namespace UmbracoJAM.Feature.Headless.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]        
-        [CacheControl(MaxAge = 60)]
         public JsonResult<Dictionary<string, object>> GetContentByRoute(string route)
         {
             if (string.IsNullOrEmpty(route)) 
@@ -79,7 +80,6 @@ namespace UmbracoJAM.Feature.Headless.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [CacheControl(MaxAge = 60)]
         public JsonResult<IEnumerable<Dictionary<string, object>>> GetAllContent()
         {
             var contentAtRoot = _context.UmbracoContext.Content.GetAtRoot();
@@ -91,7 +91,13 @@ namespace UmbracoJAM.Feature.Headless.Controllers
                 .DescendantsOrSelf<IPublishedContent>()
                 .Select(x => _contentMapper.MapPublishedContent(x));
 
-            return Json(contentList);
+            return Json(
+                contentList,
+                new JsonSerializerSettings()
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                });
         }
     }
 }

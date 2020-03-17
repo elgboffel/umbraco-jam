@@ -1,8 +1,10 @@
-﻿exports.siteConstants = {
+﻿﻿// @ts-ignore
+exports.siteConstants = {
     siteRootPath: "site",
     contentRootPath: "site/content/",
     dataRootPath: "site/data/",
-    siteMapPath: "site/site-map.js"
+    siteMapPath: "site/siteMap.js",
+    siteMapFoundationPath: "src/foundation/umbracoContent/siteMap.js"
 };
 
 exports.algoliaConstants = {

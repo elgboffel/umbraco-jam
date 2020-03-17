@@ -1,7 +1,7 @@
 const compose = require("next-compose-plugins");
 const withSass = require("@zeit/next-sass");
 const path = require("path");
-const siteMap = require("./build/dato-cms/siteMap");
+const siteMap = require("./site/siteMap");
 
 const nextConfig = {  
   webpack: function (config) {
@@ -18,12 +18,15 @@ const nextConfig = {
   exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
 
     try {
-      return Object.values(siteMap).reduce((paths, page) => {   
+      
+      const paths = Object.values(siteMap).reduce((paths, page) => {
 
-        paths[`${page.url}`] = { page: `/${page.template}`, query: { path: `${page.url}`, id: `${page.id}` } };
-        
+        paths[`${page.url}`] = { page: `/${page.template}`, query: { path: `${page.url}`, id: `${page.id}`} };
+
         return paths;
       }, {});
+      
+      return paths
 
     } catch (err) {
       console.error(err);
