@@ -1,0 +1,21 @@
+﻿{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "~*": [
+        "../../../src*"
+      ]
+    }
+  },
+  "exclude": [
+    "out",
+    ".next"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}
