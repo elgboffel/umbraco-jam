@@ -15,7 +15,7 @@ const { siteConstants } = require("./constants");
 //     })
 //     .catch(error => console.log(error));
 
-fetch("http://local.umbraco-jam.dk/Umbraco/Api/Headless/GetAllContent")
+fetch("http://localhost:5000/Umbraco/Api/Headless/GetAllContent")
     .then((res: any) => res.json())
     .then((result: BaseContent[]) => {
         const siteMap = createSiteMapObj(result);

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Umbraco.Core;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 
@@ -63,7 +65,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                         value = MapUdisToPath(ConvertNestedContentSourceValueToObject(sourceValue) as JToken, _helper);
                         break;
                     case var x when IsHtml(sourceValue):
-                        value = MapUdiInHtml(sourceValue);
+                        value = MapUdiInHtml(sourceValue, _helper);
                         break;
                     case var x when (sourceValue.Contains("umb://media")):
                         value = GetUmbracoMedia(_helper, sourceValue);
@@ -130,7 +132,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
         {
             var media = helper.Media(value);
 
-            return media == null ? string.Empty : $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Host}{media.Url}";
+            return media == null ? string.Empty : $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Authority}{media.Url}";
         }        
         
         private string GetUmbracoContent(string value, UmbracoHelper helper)
@@ -138,6 +140,19 @@ namespace UmbracoJAM.Feature.Headless.Mappers
             var content = helper.Content(value);
 
             return content == null ? string.Empty : $"{content.Url}";
+        }
+        
+        public string GetStringBetween(string token, string first, string second)
+        {            
+            if (!token.Contains(first)) return "";
+
+            var afterFirst = token.Split(new[] { first }, StringSplitOptions.None)[1];
+
+            if (!afterFirst.Contains(second)) return "";
+
+            var result = afterFirst.Split(new[] { second }, StringSplitOptions.None)[0];
+
+            return result;
         }
         
         private bool TryParseJson(string value)
@@ -153,19 +168,19 @@ namespace UmbracoJAM.Feature.Headless.Mappers
             }
         }
         
-        private static bool IsHtml(string text)
+        private bool IsHtml(string text)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(text);
             return !HtmlIsJustText(doc.DocumentNode);
         }
         
-        private static bool HtmlIsJustText(HtmlNode rootNode)
+        private bool HtmlIsJustText(HtmlNode rootNode)
         {
             return rootNode.Descendants().All(n => n.NodeType == HtmlNodeType.Text);
         }
         
-        private static string MapUdiInHtml(string html)
+        private string MapUdiInHtml(string html, UmbracoHelper helper)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
@@ -173,16 +188,30 @@ namespace UmbracoJAM.Feature.Headless.Mappers
             foreach (var link in doc.DocumentNode.SelectNodes("//a[@href]"))
             {
                 var att = link.Attributes["href"];
-                att.Value = "prut";
+                var value = att.Value;
+
+                switch (true)
+                {
+                    case var x when value.ContainsAny(new [] {"https://", "http://"}):
+                        continue;
+                    case var x when value.Contains("{localLink:umb"):
+                        link.SetAttributeValue(
+                            "href", 
+                            GetUmbracoContent(GetStringBetween(value,"{localLink:", "}"), helper));
+                        break;
+                    default:
+                        continue;
+                }
             }
 
-            foreach (var link in doc.DocumentNode.SelectNodes("//img[@src]"))
+            foreach (var img in doc.DocumentNode.SelectNodes("//img[@src]"))
             {
-                var att = link.Attributes["src"];
-                att.Value = "prut";
+                var att = img.Attributes["src"];
+                var udi = img.Attributes["data-udi"]?.Value;
+                img.SetAttributeValue("src", $"{GetUmbracoMedia(helper, udi)}{att.Value}");
             }
 
-            return doc.ParsedText;
+            return doc.DocumentNode.InnerHtml;
         }
     }
 }

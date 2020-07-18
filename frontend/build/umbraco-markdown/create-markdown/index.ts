@@ -1,6 +1,4 @@
-﻿﻿// @ts-ignore
-const fs = require("fs");
-const { siteConstants } = require("../constants");
+﻿const { siteConstants } = require("../constants");
 const { generateFrontmatter } = require("../generate-frontmatter");
 const { writeFile } = require("../write-file");
 
@@ -15,6 +13,7 @@ exports.createData = (data: object, path: string, root: string) => {
 };
 
 const createMarkdown = (data: object, filePath: string, root: string) => {
+    const fs = require("fs");
 
     if (!data) throw `item is ${data}`;
 

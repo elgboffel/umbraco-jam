@@ -14,11 +14,17 @@ import { NextPageContext } from "next";
 //     }
 // };
 
+export interface FrontmatterByContext<T> {
+    content: T
+}
+
 export const getFrontmatterByContext = async <T>(context: NextPageContext) => {
-    console.log("context", context)
     const { asPath, req } = context;
     const pathToMarkdown = `${req?.url ? `${req?.url}` : `${asPath}`}`;
+
     const content = await import(`../../../site/content${pathToMarkdown}index.md`);
     const frontmatter = matter(content.default);
-    return <T>{ ...frontmatter.data }
-};
+    return <FrontmatterByContext<T>>{ 
+        content: {...frontmatter.data }
+    }
+}

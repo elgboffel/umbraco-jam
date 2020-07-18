@@ -1,10 +1,8 @@
-﻿﻿// @ts-ignore
-const fs = require("fs");
-const path = require("path");
-// @ts-ignore
-const baseMkdirp = require("mkdirp");
-
+﻿
 exports.writeFile = (filePath: string, content: string) => {
+    const fs = require("fs");
+    const path = require("path");
+    const baseMkdirp = require("mkdirp");
 
     return baseMkdirp(path.dirname(filePath))
         .then(() => 

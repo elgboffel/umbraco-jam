@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http.Results;
 using System.Web.Mvc;
 using Examine;
@@ -18,18 +19,19 @@ using UmbracoJAM.Feature.Headless.Mappers;
 namespace UmbracoJAM.Feature.Headless.Controllers
 {
     [PluginController("Api")]
-    [JsonCamelCaseFormatter]
     public class HeadlessController : UmbracoApiController
     {
         private readonly ISearcher _searcher;
         private readonly UmbracoContextReference _context;
         private readonly UmbracoContentMapper _contentMapper;
+        private JsonSerializerSettings _camelCasingSerializerSettings = new JsonSerializerSettings();
 
         public HeadlessController(IUmbracoContextFactory context)
         {
             _context = context.EnsureUmbracoContext() ?? throw new Exception("UmbracoContext not found");
             _searcher =  ExamineSearchers.GetExternalIndexSearcher() ?? throw new Exception("ExternalIndex not found");
             _contentMapper = new UmbracoContentMapper(Umbraco);
+            _camelCasingSerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
         
         
@@ -50,7 +52,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
 
             var mappedContent = _contentMapper.MapPublishedContent(content);
 
-            return Json(mappedContent);
+            return Json(mappedContent, _camelCasingSerializerSettings);
         }
         
         
@@ -71,7 +73,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
             
             var mappedContent = _contentMapper.MapPublishedContent(content);
 
-            return Json(mappedContent);
+            return Json(mappedContent, _camelCasingSerializerSettings);
         }
         
 
@@ -91,13 +93,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
                 .DescendantsOrSelf<IPublishedContent>()
                 .Select(x => _contentMapper.MapPublishedContent(x));
 
-            return Json(
-                contentList,
-                new JsonSerializerSettings()
-                {
-                    NullValueHandling = NullValueHandling.Ignore,
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                });
+            return Json(contentList, _camelCasingSerializerSettings);
         }
     }
 }
