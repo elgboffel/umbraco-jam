@@ -6,4 +6,4 @@ jobs:
     executor: win/default
     steps:
       - checkout
-      - run: 'Write-Host "Hello, Windows"'
+      - run: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\msbuild.exe'
