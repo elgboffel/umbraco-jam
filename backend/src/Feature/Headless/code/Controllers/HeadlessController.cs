@@ -95,5 +95,25 @@ namespace UmbracoJAM.Feature.Headless.Controllers
 
             return Json(contentList, _camelCasingSerializerSettings);
         }
+        
+        /// <summary>
+        /// Route: /Umbraco/Api/Headless/GetAllPaths
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult<IEnumerable<IEnumerable<string>>> GetAllPaths()
+        {
+            var contentAtRoot = _context.UmbracoContext.Content.GetAtRoot();
+            
+            if (contentAtRoot == null)
+                throw new NoNullAllowedException(nameof(contentAtRoot));
+
+            var pathsList = contentAtRoot
+                .DescendantsOrSelf<IPublishedContent>()
+                .Select(x => _contentMapper.MapPublishedPath(x))
+                .Where(x => x.Any());
+
+            return Json(pathsList, _camelCasingSerializerSettings);
+        }
     }
 }

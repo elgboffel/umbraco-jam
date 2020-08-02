@@ -23,6 +23,13 @@ namespace UmbracoJAM.Feature.Headless.Mappers
         {
             _helper = helper ?? throw new ArgumentException(nameof(helper));
         }
+
+        public IEnumerable<string> MapPublishedPath(IPublishedContent content)
+        {
+            return content.Url
+                .Split('/')
+                .Where(x => !x.IsNullOrWhiteSpace());
+        }
         
         public Dictionary<string, object> MapPublishedContent(
             IPublishedContent content,

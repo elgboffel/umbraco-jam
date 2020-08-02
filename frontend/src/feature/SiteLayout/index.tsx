@@ -4,11 +4,9 @@
 const SiteLayout: React.FC = (props) => {
 
     return (
-        <>
-            <main>
-                {props.children}
-            </main>
-        </>
+        <main>
+            {props.children}
+        </main>
     )
 };
 
