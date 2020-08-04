@@ -3,7 +3,9 @@ orbs:
   win: circleci/windows@2.2.0
 jobs:
   build:
-    executor: win/vs2019
+    executor:
+      name: win/default
+      shell: powershell.exe
     steps:
       - checkout
       - run: msbuild /t:Build
