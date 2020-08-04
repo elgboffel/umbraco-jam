@@ -9,5 +9,4 @@ jobs:
     steps:
       - checkout
       - run:
-          working_directory: ~/backend/src/Project/UmbracoJAM/code
-          command: msbuild /t:Build
+          command: msbuild ~/backend/UmbracoJAM.sln /t:Build
