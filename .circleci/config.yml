@@ -8,5 +8,6 @@ jobs:
       shell: powershell.exe
     steps:
       - checkout
-      - working_directory: ~/backend/src/Project/UmbracoJAM/code
-      - run: msbuild /t:Build
+      - run:
+          working_directory: ~/backend/src/Project/UmbracoJAM/code
+          command: msbuild /t:Build
