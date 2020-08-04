@@ -395,6 +395,8 @@
     <Content Include="Config\Lang\zh-CN.user.xml" />
     <Content Include="Config\logviewer.searches.config.js" />
     <Content Include="Global.asax" />
+    <Content Include="Properties\PublishProfiles\Production.pubxml" />
+    <Content Include="Properties\PublishProfiles\Production.pubxml.user" />
     <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
     <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
     <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />

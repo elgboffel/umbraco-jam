@@ -9,4 +9,4 @@ jobs:
     steps:
       - checkout
       - run:
-          command: msbuild backend/src/Project/UmbracoJAM/code/UmbracoJAM.Project.Web.csproj /t:Build
+          command: backend/build-and-publish.ps1
