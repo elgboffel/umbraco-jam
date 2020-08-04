@@ -9,4 +9,4 @@ jobs:
     steps:
       - checkout
       - run:
-          command: backend/build-and-publish.ps1
+          command: .circleci/publish-project.ps1
