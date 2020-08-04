@@ -13,5 +13,5 @@ $nuGet = $true
      nuget restore "$($solutionPath)"
  }
 
-Write-Host "Publishing $($solutionPath) with password: $($env:PRODUCTION_PASS)" -foregroundcolor green
-& msbuild "$($projectPath)" /p:VisualStudioVersion=16.0 /p:DeployOnBuild=true /p:Configuration=Debug /p:PublishProfile=Properties/PublishProfiles/Production.pubxml /p:WY34qkPc
+Write-Host "Publishing $($solutionPath)" -foregroundcolor green
+& msbuild "$($projectPath)" /p:VisualStudioVersion=16.0 /p:DeployOnBuild=true /p:Configuration=Debug /p:PublishProfile=Properties/PublishProfiles/Production.pubxml /p:Password=$env:PRODUCTION_PASS
