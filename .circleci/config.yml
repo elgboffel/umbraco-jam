@@ -3,7 +3,8 @@ orbs:
   win: circleci/windows@2.2.0
 jobs:
   build:
-    executor: win/default
+    executor: win/vs2019
     steps:
       - checkout
-      - run: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\msbuild.exe'
+      - working_directory: ~/backend/src/Project/UmbracoJAM/code
+      - run: msbuild /t:Build
