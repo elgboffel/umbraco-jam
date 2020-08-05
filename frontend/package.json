@@ -8,8 +8,9 @@
     "build": "npm run build:next",
     "build:markdown": "ts-node ./build/umbraco-markdown",
     "build:next": "next build ./src/project/mccode",
+    "postbuild": "next-on-netlify ./src/project/mccode",
     "start":  "next start ./src/project/mccode",
-    "serve": "serve out"
+    "serve": "serve out"    
   },
   "keywords": [],
   "author": "",
@@ -35,6 +36,7 @@
     "typescript": "^3.7.4"
   },
   "dependencies": {
+    "next-on-netlify": "^2.3.2",
     "framer-motion": "^1.7.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

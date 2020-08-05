@@ -5,7 +5,7 @@ const path = require("path");
 const withTM = require("next-transpile-modules")(["./src/feature", "./src/foundation"]);
 
 const nextConfig = {  
-  webpack: function (config) {
+  webpack: function (config) {    
     /* enable to read .md files */
     config.module.rules.push({
       test: /\.md$/,
@@ -17,6 +17,7 @@ const nextConfig = {
 
     return config;
   },
+  target: "serverless",
   exportTrailingSlash: true,
   // Old way of ssg before getStaticProps and getStaticPaths
   // exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
