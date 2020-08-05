@@ -1,0 +1,3 @@
+﻿﻿[build]
+  command   = "npm run build"
+  publish   = "src/project/mccode/publish/out_publish"
