@@ -9,6 +9,7 @@
     "build:markdown": "ts-node ./build/umbraco-markdown",
     "build:next": "next build src/project/mcCode",
     "build:export": "next export src/project/mcCode",
+    "postbuild": "node build/next-on-netlify",
     "start":  "next start ./src/project/mccode",
     "serve": "serve out"    
   },
