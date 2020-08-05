@@ -8,7 +8,7 @@ import {Pages} from "~/feature/Pages";﻿﻿﻿
 
 const Page: NextPage<BaseContent> = ({template, ...props}) => {
     const router = useRouter();
-    console.log(router)
+
     if (router.isFallback)
         return <div>Loading...</div>
     
@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps = async ({params, ...context}) => {
     const url = toUrlString(params?.slug);
     const content = await fetch(`${process.env.NEXT_PUBLIC_UMBRACO_BASE_PATH}/Umbraco/Api/Headless/GetContentByRoute?route=${url}`);
     const props = await content.json();
-
+    console.log("props",props)
     return {
         props,
         revalidate: 1
