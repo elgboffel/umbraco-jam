@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev ./src/project/mccode",
-    "build": "npm run build:next && npm run build:export",
+    "build": "npm run build:next",
     "build:markdown": "ts-node ./build/umbraco-markdown",
     "build:next": "next build src/project/mcCode",
     "build:export": "next export src/project/mcCode",
