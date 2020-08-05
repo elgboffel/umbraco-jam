@@ -17,7 +17,6 @@ const nextConfig = {
 
     return config;
   },
-  target: "serverless",
   exportTrailingSlash: true,
   // Old way of ssg before getStaticProps and getStaticPaths
   // exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
