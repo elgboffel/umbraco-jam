@@ -8,7 +8,7 @@
     "build": "npm run build:next",
     "build:markdown": "ts-node ./build/umbraco-markdown",
     "build:next": "next build src/project/mcCode",
-    "postbuild": "next-on-netlify",
+    "postbuild": "node build/next-on-netlify",
     "start":  "next start ./src/project/mccode",
     "serve": "serve out"    
   },
@@ -33,7 +33,8 @@
     "serve": "^11.3.2",
     "tailwindcss": "^1.4.6",
     "ts-node": "^8.6.2",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+    "fs-extra": "^9.0.1"
   },
   "dependencies": {
     "next-on-netlify": "^2.3.2",
