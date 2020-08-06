@@ -10,7 +10,7 @@
     "build:next": "next build src/project/mcCode",
     "build:export": "next export src/project/mcCode",
     "start":  "next start ./src/project/mccode",
-    "serve": "serve out"    
+    "serve": "serve ./src/project/mccode/out"    
   },
   "keywords": [],
   "author": "",
@@ -34,7 +34,8 @@
     "tailwindcss": "^1.4.6",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.4",
-    "fs-extra": "^9.0.1"
+    "fs-extra": "^9.0.1",
+    "cross-env": "^7.0.2"
   },
   "dependencies": {
     "framer-motion": "^1.7.0",

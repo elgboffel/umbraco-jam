@@ -4,7 +4,7 @@ import React from "react";
 import {BaseContent} from "~/foundation/umbracoContent/typings";
 import {toUrlString} from "~/foundation/utils/toUrlString";
 import {ParsedUrlQuery} from "querystring";
-import {Pages} from "~/feature/Pages";﻿﻿﻿
+import {Templates} from "~/feature/Templates";﻿﻿﻿
 
 const Page: NextPage<BaseContent> = ({template, ...props}) => {
     const router = useRouter();
@@ -13,7 +13,7 @@ const Page: NextPage<BaseContent> = ({template, ...props}) => {
         return <div>Loading...</div>
     
     // @ts-ignore
-    const Page = Pages[template];
+    const Page = Templates[template];
     
     if (!Page)
         return <>No page template/component found</>;

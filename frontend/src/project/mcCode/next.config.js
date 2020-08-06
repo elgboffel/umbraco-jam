@@ -7,17 +7,16 @@ const withTM = require("next-transpile-modules")(["./src/feature", "./src/founda
 const nextConfig = {  
   webpack: function (config) {    
     /* enable to read .md files */
-    config.module.rules.push({
-      test: /\.md$/,
-      use: "raw-loader"
-    });
+    // config.module.rules.push({
+    //   test: /\.md$/,
+    //   use: "raw-loader"
+    // });
 
     /* Resolve alias */
     config.resolve.alias["~"] = path.resolve(`${__dirname}/src`);
 
     return config;
   },
-  target: 'serverless',
   exportTrailingSlash: true,
   // Old way of ssg before getStaticProps and getStaticPaths
   // exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {

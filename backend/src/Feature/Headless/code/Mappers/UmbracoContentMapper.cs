@@ -98,7 +98,8 @@ namespace UmbracoJAM.Feature.Headless.Mappers
             var valueToConvert = value?
                 .Replace(@"\", string.Empty)
                 .Replace("\"[", "[")
-                .Replace("]\"", "]");
+                .Replace("]\"", "]")
+                .Replace("rn","");
             
             return valueToConvert == null ? null : JsonConvert.DeserializeObject(valueToConvert);
         }
@@ -192,31 +193,46 @@ namespace UmbracoJAM.Feature.Headless.Mappers
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
 
-            foreach (var link in doc.DocumentNode.SelectNodes("//a[@href]"))
-            {
-                var att = link.Attributes["href"];
-                var value = att.Value;
+            var links = doc.DocumentNode?.SelectNodes("//a[@href]");
 
-                switch (true)
+            if (links != null && links.Any())
+            {
+                foreach (var link in links)
                 {
-                    case var x when value.ContainsAny(new [] {"https://", "http://"}):
-                        continue;
-                    case var x when value.Contains("{localLink:umb"):
-                        link.SetAttributeValue(
-                            "href", 
-                            GetUmbracoContent(GetStringBetween(value,"{localLink:", "}"), helper));
-                        break;
-                    default:
-                        continue;
-                }
+                    var att = link.Attributes["href"];
+                    var value = att.Value;
+
+                    switch (true)
+                    {
+                        case var x when value.ContainsAny(new [] {"https://", "http://"}):
+                            continue;
+                        case var x when value.Contains("{localLink:umb"):
+                            link.SetAttributeValue(
+                                "href", 
+                                GetUmbracoContent(GetStringBetween(value,"{localLink:", "}"), helper));
+                            break;
+                        default:
+                            continue;
+                    }
+                }  
             }
 
-            foreach (var img in doc.DocumentNode.SelectNodes("//img[@src]"))
+
+            var images = doc.DocumentNode?.SelectNodes("//img[@src]");
+
+            if (images != null && images.Any())
             {
-                var att = img.Attributes["src"];
-                var udi = img.Attributes["data-udi"]?.Value;
-                img.SetAttributeValue("src", $"{GetUmbracoMedia(helper, udi)}{att.Value}");
+                foreach (var img in images)
+                {
+                    if (img == null) 
+                        continue;
+                
+                    var att = img?.Attributes["src"];
+                    var udi = img?.Attributes["data-udi"]?.Value;
+                    img?.SetAttributeValue("src", $"{GetUmbracoMedia(helper, udi)}{att.Value}");
+                }  
             }
+
 
             return doc.DocumentNode.InnerHtml;
         }
