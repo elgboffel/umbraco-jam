@@ -17,7 +17,8 @@ const nextConfig = {
 
     return config;
   },
-  exportTrailingSlash: true,
+  distDir: "../../../dist/client",
+  trailingSlash: true,
   // Old way of ssg before getStaticProps and getStaticPaths
   // exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
   //

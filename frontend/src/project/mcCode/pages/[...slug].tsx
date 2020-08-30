@@ -8,12 +8,12 @@ import {Templates} from "~/feature/Templates";﻿﻿﻿
 
 const Page: NextPage<BaseContent> = ({template, ...props}) => {
     const router = useRouter();
-
+    const templates: any = Templates;
+    
     if (router.isFallback)
         return <div>Loading...</div>
     
-    // @ts-ignore
-    const Page = Templates[template];
+    const Page = templates[template];
     
     if (!Page)
         return <>No page template/component found</>;
@@ -52,10 +52,10 @@ export const getStaticProps: GetStaticProps = async ({params, ...context}) => {
     const url = toUrlString(params?.slug);
     const content = await fetch(`${process.env.NEXT_PUBLIC_UMBRACO_BASE_PATH}/Umbraco/Api/Headless/GetContentByRoute?route=${url}`);
     const props = await content.json();
-    console.log("props",props)
+
     return {
         props,
-        revalidate: 1
+        revalidate: 3
     }
 }
 

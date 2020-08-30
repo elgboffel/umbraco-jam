@@ -1,4 +1,6 @@
-﻿﻿﻿﻿import {NextPage} from "next";
+﻿import Image from "~/feature/Image";
+
+﻿﻿﻿import {NextPage} from "next";
 import { useRouter } from 'next/router'
 import React, {FunctionComponent} from "react";
 import Link from "~/feature/Link";
@@ -8,7 +10,7 @@ export interface ArticleProps extends BaseContent {
     heading: string,
     lead: string,
     bodyText: string,
-    media: Media,
+    media: string,
     link: ILink
 }
 
@@ -17,11 +19,11 @@ const Article: FunctionComponent<ArticleProps> = ({media, heading, bodyText, lin
 
     if (router.isFallback)
         return <div>Loading...</div>
-
+    
     return (
         <article className="container mx-auto px-4">
             {media && (
-                <img className="mb-5 object-cover h-full w-full" src={`${media}`} alt=""/>
+                <Image url={media} />
             )}
             <h1 className="mt-10">{heading}</h1>
             <div  dangerouslySetInnerHTML={{__html: bodyText}}/>

@@ -8,7 +8,9 @@
 # build
 /out
 /.next
+/dist
 src/project/mcCode/.next
+src/project/mcCode/dist
 src/project/mcCode/out
 src/project/mcCode/publish
 
