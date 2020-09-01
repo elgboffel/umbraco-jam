@@ -6,7 +6,6 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
   frontend: # This is our first job
     executor:
       name: node/default
-      tag: '10.4'
     steps:
       - checkout
       - restore_cache:
