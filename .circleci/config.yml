@@ -10,7 +10,7 @@ jobs:
       - checkout
       - run:
           name: "Running NuGet"
-          command: nuget restore backend/UmbracoJAM.sln
+          command: nuget restore $env:PATH_SOLUTION
       - run:
           name: "Building and publishing"
-          command: msbuild backend/src/Project/UmbracoJAM/code/UmbracoJAM.Project.Web.csproj /p:VisualStudioVersion=16.0 /p:DeployOnBuild=true /p:Configuration=Debug /p:PublishProfile=Properties/PublishProfiles/Production.pubxml /p:Password=$env:PRODUCTION_PASS
+          command: msbuild $env:PATH_PROJECT /p:VisualStudioVersion=16.0 /p:DeployOnBuild=true /p:Configuration=Debug /p:PublishProfile=Properties/PublishProfiles/Production.pubxml /p:Password=$env:PRODUCTION_PASS
