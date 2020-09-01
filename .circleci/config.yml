@@ -1,7 +1,4 @@
 version: 2.1
-orbs:
-  win: circleci/windows@2.2.0
-  node: circleci/node@4.0.0
 jobs: # we now have TWO jobs, so that a workflow can coordinate them!
   frontend: # This is our first job
     executor:
@@ -26,8 +23,9 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
           name: "Building and publishing"
           command: msbuild $env:PATH_PROJECT /p:VisualStudioVersion=16.0 /p:DeployOnBuild=true /p:Configuration=Debug /p:PublishProfile=Properties/PublishProfiles/Production.pubxml /p:Password=$env:PRODUCTION_PASS
 workflows:
-  version: 2.1
-  one_and_two: # this is the name of our workflow
+  frontend_and_backend: # this is the name of our workflow
     jobs: # and here we list the jobs we are going to run.
       - frontend
       - backend
+          requires:
+            - frontend
