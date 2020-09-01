@@ -9,10 +9,14 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
       tag: '10.4'
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run: npm install
       - run: npm run deploy:firebase
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
   backend: # This is our second job
     executor:
       name: win/default
