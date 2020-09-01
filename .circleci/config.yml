@@ -2,12 +2,20 @@ version: 2.1
 orbs:
   win: circleci/windows@2.2.0
 jobs:
+  filters:
+    branches:
+      only:
+        - master
   build:
     executor:
       name: win/default
       shell: powershell.exe
     steps:
       - checkout
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          override-ci-command: npm install
+      - run: npm run deploy:firebase
       - run:
           name: "Running NuGet"
           command: nuget restore $env:PATH_SOLUTION
