@@ -8,12 +8,10 @@ jobs:
       shell: powershell.exe
     steps:
       - checkout
-      - run:
-          name: "Cleaning"
-          command: msbuild $PATH_SOLUTION /t:Clean /m
+      - run: echo "Path ${PATH_SOLUTION}"
       - run:
           name: "Running NuGet"
           command: nuget restore $PATH_SOLUTION
       - run:
-          name: "Publishing"
+          name: "Building and publishing"
           command: msbuild $PATH_PROJECT /p:VisualStudioVersion=16.0 /p:DeployOnBuild=true /p:Configuration=Debug /p:PublishProfile=Properties/PublishProfiles/Production.pubxml /p:Password=$env:PRODUCTION_PASS
