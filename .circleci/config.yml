@@ -9,9 +9,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Cleaning"
-          command: msbuild $PATH_SOLUTION /t:Clean /m
-      - run:
           name: "Running NuGet"
           command: nuget restore $PATH_SOLUTION
       - run:
