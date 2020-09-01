@@ -9,4 +9,11 @@ jobs:
     steps:
       - checkout
       - run:
-          command: .circleci/publish-project.ps1
+          name: "Cleaning"
+          command: msbuild $PATH_SOLUTION /t:Clean /m
+      - run:
+          name: "Running NuGet"
+          command: nuget restore $PATH_SOLUTION
+      - run:
+          name: "Publishing"
+          command: msbuild $PATH_PROJECT /p:VisualStudioVersion=16.0 /p:DeployOnBuild=true /p:Configuration=Debug /p:PublishProfile=Properties/PublishProfiles/Production.pubxml /p:Password=$env:PRODUCTION_PASS

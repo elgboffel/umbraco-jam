@@ -140,17 +140,21 @@ namespace UmbracoJAM.Feature.Headless.Mappers
         {
             var media = helper.Media(value);
 
-            return media == null ? string.Empty : $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Authority}{media.Url}";
+            return media == null 
+                ? string.Empty 
+                : $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Authority}{media.Url}";
         }        
         
         private string GetUmbracoContent(string value, UmbracoHelper helper)
         {
             var content = helper.Content(value);
 
-            return content == null ? string.Empty : $"{content.Url}";
+            return content == null 
+                ? string.Empty 
+                : $"{content.Url}";
         }
         
-        public string GetStringBetween(string token, string first, string second)
+        private string GetStringBetween(string token, string first, string second)
         {            
             if (!token.Contains(first)) return "";
 
