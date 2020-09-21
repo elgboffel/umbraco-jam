@@ -5,11 +5,10 @@ orbs:
 jobs: # we now have TWO jobs, so that a workflow can coordinate them!
   frontend: # This is our first job
     docker:
-      - image: circleci/node:10.8.0
-    working_directory: ~/frontend
+      - image: circleci/node:10.13.0
+    working_directory: ~/umbraco-jam/frontend
     steps:
-      - checkout:
-          path: ~/frontend
+      - checkout
       - run: npm install
       - run: npm run deploy:firebase
   backend: # This is our second job
