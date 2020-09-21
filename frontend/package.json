@@ -9,9 +9,9 @@
   "config": {
     "project": {
       "mccode": {
-        "path": "./src/project/mccode",
+        "path": "./src/project/mcCode",
         "pathFirebase": "./firebase.json",
-        "pathServer": "./src/project/mccode/tsconfig-server.json"
+        "pathServer": "./src/project/mcCode/tsconfig-server.json"
       }
     }
   },
@@ -20,8 +20,8 @@
     "dev": "next dev %npm_package_config_project_mccode_path%",
     "build": "npm run build:next && npm run build:server",
     "build:markdown": "ts-node ./build/umbraco-markdown",
-    "build:next": "npm run clean && next build ./src/project/mcCode",
-    "build:server": "tsc --project ./src/project/mccode/tsconfig-server.json --outDir dist/server",
+    "build:next": "npm run clean && next build %npm_package_config_project_mccode_path%",
+    "build:server": "tsc --project %npm_package_config_project_mccode_pathServer% --outDir dist/server",
     "start": "next start %npm_package_config_project_mccode_path%",
     "serve:firebase": "firebase serve --config %npm_package_config_project_mccode_pathFirebase% --port=5003 --only hosting,functions",
     "deploy:firebase": "firebase deploy --only hosting,functions"
