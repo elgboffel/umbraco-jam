@@ -20,7 +20,6 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
           working_directory: ~/frontend
           command: npm install
       - run: npm run build
-        - 
       - save_cache:
           paths:
             - node_modules
