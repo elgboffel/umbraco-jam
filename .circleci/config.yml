@@ -24,11 +24,12 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
           
       - save_cache:
           paths:
-            - frontend/node_modules
-            
+            - frontend/node_modules            
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           
-      - run: npm firebase deploy --only hosting,functions --token "$FIREBASE_TOKEN"
+      - run:
+          working_directory: ~/repo/frontend
+          command: npm firebase deploy --only hosting,functions --token "$FIREBASE_TOKEN"
   backend: # This is our second job
     executor:
       name: win/default
