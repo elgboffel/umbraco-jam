@@ -6,12 +6,12 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
   frontend: # This is our first job
     docker:
       - image: circleci/node:10.13.0
-    working_directory: ~/frontend
+    working_directory: ~/repo/frontend
     steps:
       - checkout
-      - run: npm --prefix ./frontend install
-      - run: npm --prefix ./frontend run build
-      - run: npm --prefix ./frontend firebase deploy --only hosting,functions --token "$FIREBASE_TOKEN"
+      - run: npm install
+      - run: npm run build
+      - run: npm firebase deploy --only hosting,functions --token "$FIREBASE_TOKEN"
   backend: # This is our second job
     executor:
       name: win/default
@@ -31,6 +31,3 @@ workflows:
       - backend:
           requires:
             - frontend
-      filters:
-        branches:
-          only: master
