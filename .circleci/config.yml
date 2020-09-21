@@ -12,7 +12,7 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "repo/frontend/package.json" }}
+            - v1-dependencies-{{ checksum "frontend/package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run:
@@ -24,7 +24,7 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
           
       - save_cache:
           paths:
-            - repo/frontend/node_modules
+            - frontend/node_modules
             
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           
