@@ -10,22 +10,12 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
     steps:
       - checkout
       # Download and cache dependencies
-      - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
 
       - run:
           working_directory: ~/frontend
           command: npm install
       - run: npm run build
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-          
       - run: npm firebase deploy --only hosting,functions --token "$FIREBASE_TOKEN"
   backend: # This is our second job
     executor:
