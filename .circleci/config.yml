@@ -10,7 +10,8 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
     steps:
       - checkout
       - run: npm --prefix ./frontend install
-      - run: npm --prefix ./frontend run deploy:firebase
+      - run: npm --prefix ./frontend run build
+      - run: npm --prefix ./frontend firebase deploy --only hosting,functions --token "$FIREBASE_TOKEN"
   backend: # This is our second job
     executor:
       name: win/default
