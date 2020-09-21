@@ -12,10 +12,10 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
       # Download and cache dependencies
 
       - run:
-          working_directory: ~/frontend
+          working_directory: ~/repo/frontend
           command: npm install
       - run:
-          working_directory: ~/frontend
+          working_directory: ~/repo/frontend
           command: npm run deploy
 
       - run: npm firebase deploy --only hosting,functions --token "$FIREBASE_TOKEN"
