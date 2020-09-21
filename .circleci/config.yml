@@ -14,7 +14,9 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
       - run:
           working_directory: ~/frontend
           command: npm install
-      - run: npm run build
+      - run:
+          working_directory: ~/frontend
+          command: npm run deploy
 
       - run: npm firebase deploy --only hosting,functions --token "$FIREBASE_TOKEN"
   backend: # This is our second job
