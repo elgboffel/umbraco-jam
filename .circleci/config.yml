@@ -31,3 +31,6 @@ workflows:
       - backend:
           requires:
             - frontend
+      filters:
+        branches:
+          only: master
