@@ -6,10 +6,10 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
   frontend: # This is our first job
     docker:
       - image: circleci/node:10.13.0
-    working_directory: ~/umbraco-jam/frontend
+    working_directory: ~/frontend
     steps:
       - checkout
-      - run: npm install
+      - run: npm --prefix ./frontend install
       - run: npm run deploy:firebase
   backend: # This is our second job
     executor:
