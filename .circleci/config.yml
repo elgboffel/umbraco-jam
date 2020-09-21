@@ -8,10 +8,24 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
       - image: circleci/node:10.13.0
     working_directory: ~/repo
     steps:
-      - checkout:
-          path: ~/repo/frontend
-      - run: npm install
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+        keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+          - 
+      - run:
+          working_directory: ~/frontend
+          command: npm install
       - run: npm run build
+        - 
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          
       - run: npm firebase deploy --only hosting,functions --token "$FIREBASE_TOKEN"
   backend: # This is our second job
     executor:
@@ -28,7 +42,13 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
 workflows:
   frontend_and_backend: # this is the name of our workflow
     jobs: # and here we list the jobs we are going to run.
-      - frontend
+      - frontend:
+          filters:
+            branches:
+              only: master
       - backend:
           requires:
             - frontend
+          filters:
+            branches:
+              only: master
