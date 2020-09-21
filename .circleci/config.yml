@@ -9,7 +9,7 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
     working_directory: ~/repo
     steps:
       - checkout:
-          - path: ./frontend
+          path: ./frontend
       - run: npm install
       - run: npm run build
       - run: npm firebase deploy --only hosting,functions --token "$FIREBASE_TOKEN"
