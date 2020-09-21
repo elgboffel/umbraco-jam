@@ -4,9 +4,8 @@ orbs:
   node: circleci/node@4.0.0
 jobs: # we now have TWO jobs, so that a workflow can coordinate them!
   frontend: # This is our first job
-    docker:
-      - image: circleci/node:10.8.0
-    working_directory: frontend/
+    executor:  node/default
+    working_directory: ~/frontend
     steps:
       - checkout
       - run: npm install
