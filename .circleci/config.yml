@@ -46,12 +46,12 @@ workflows:
   frontend_and_backend: # this is the name of our workflow
     jobs: # and here we list the jobs we are going to run.
       - frontend
-        filters:
-          branches:
-            only: master
+          filters:
+            branches:
+              only: master
       - backend:
-        requires:
-          - frontend
-        filters:
-          branches:
-            only: master
+          requires:
+            - frontend
+          filters:
+            branches:
+              only: master
