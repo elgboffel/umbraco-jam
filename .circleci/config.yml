@@ -12,10 +12,8 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
       # Download and cache dependencies
       - restore_cache:
           keys:
-            # Find a cache corresponding to this specific package-lock.json checksum
-            # when this file is changed, this key will fail
             - v1-npm-deps-{{ checksum "./frontend/package.json" }}
-            # Find the most recently generated cache used from any branch
+            # Find the most recently generated cache used
             - v1-npm-deps-
       - run:
           working_directory: ~/repo/frontend
@@ -31,7 +29,7 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
           
       - run:
           working_directory: ~/repo/frontend
-          command: npm run deploy:firebase -- --token=$FIREBASE_TOKEN
+          command: npm run deploy:firebase --token=$FIREBASE_TOKEN
   backend: # This is our second job
     executor:
       name: win/default
@@ -48,6 +46,12 @@ workflows:
   frontend_and_backend: # this is the name of our workflow
     jobs: # and here we list the jobs we are going to run.
       - frontend
+        filters:
+          branches:
+            only: master
       - backend:
-          requires:
-            - frontend
+        requires:
+          - frontend
+        filters:
+          branches:
+            only: master
