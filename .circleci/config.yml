@@ -14,7 +14,7 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
           keys:
             # Find a cache corresponding to this specific package-lock.json checksum
             # when this file is changed, this key will fail
-            - v1-npm-deps-{{ checksum "./frontend/package-lock.json" }}
+            - v1-npm-deps-{{ checksum "./frontend/package.json" }}
             # Find the most recently generated cache used from any branch
             - v1-npm-deps-
       - run:
@@ -25,13 +25,13 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
           command: npm run build
           
       - save_cache:
-          key: v1-npm-deps-{{ checksum "./frontend/package-lock.json" }}
+          key: v1-npm-deps-{{ checksum "./frontend/package.json" }}
           paths:
             - frontend/node_modules            
           
       - run:
           working_directory: ~/repo/frontend
-          command: npm run firebase deploy --only hosting,functions --token=$FIREBASE_TOKEN
+          command: npm run deploy:firebase -- --token=$FIREBASE_TOKEN
   backend: # This is our second job
     executor:
       name: win/default
