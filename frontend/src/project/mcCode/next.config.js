@@ -8,7 +8,7 @@ const withTM = require("next-transpile-modules")([
 ]);
 
 const nextConfig = {
-  webpack: function (config) {
+  webpack: function (config, { dev }) {
     /* enable to read .md files */
     // config.module.rules.push({
     //   test: /\.md$/,
@@ -21,6 +21,20 @@ const nextConfig = {
     config.resolve.alias["@foundation"] = path.resolve(
       `${__dirname}/src/foundation`
     );
+
+    /* Resolve Eslint */
+    if (dev) {
+      config.module.rules.push({
+        test: /\.(js|jsx|ts|tsx)$/,
+        loader: "eslint-loader",
+        exclude: ["/node_modules/", "/.next/", "/out/"],
+        enforce: "pre",
+        options: {
+          emitWarning: true,
+          fix: true,
+        },
+      });
+    }
 
     return config;
   },
