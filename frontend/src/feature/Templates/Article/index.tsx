@@ -1,10 +1,9 @@
 ﻿import Image from "~/feature/Image";
 
-﻿﻿﻿import {NextPage} from "next";
 import { useRouter } from 'next/router'
 import React, {FunctionComponent} from "react";
 import Link from "~/feature/Link";
-import {BaseContent, Media, Link as ILink} from "~/foundation/umbracoContent/typings";
+import {BaseContent, Link as ILink} from "~/foundation/umbracoContent/typings";
 
 export interface ArticleProps extends BaseContent {
     heading: string,

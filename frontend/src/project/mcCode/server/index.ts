@@ -4,8 +4,10 @@ import next from "next";
 
 initializeApp();
 
+const isDev = process.env.NODE_ENV === "development"
+
 const app = next({
-    dev: false,
+    dev: isDev,
     conf: { distDir: "dist/client" },
 });
 
