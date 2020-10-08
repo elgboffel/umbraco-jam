@@ -1,10 +1,7 @@
-﻿﻿export function toUrlString(array: string | string[] | undefined) {
+﻿export function toUrlString(array: string | string[] | undefined) {
+  if (!array) return "";
 
-    if (!array)
-        return "";
+  if (typeof array === "string") return `/${array}`;
 
-    if (typeof array === "string")
-        return `/${array}`
-
-    return array.reduce((acc, item) => `${acc}/${item}`, "");
+  return array.reduce((acc, item) => `${acc}/${item}`, "");
 }

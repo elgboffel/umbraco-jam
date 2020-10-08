@@ -21,7 +21,9 @@
     "paths": {
       "~*": [
         "./src*"
-      ]
+      ],
+      "@feature*": ["./src/feature*"],
+      "@foundation*": ["./src/foundation*"]
     }
   },
   "exclude": [

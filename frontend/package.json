@@ -26,17 +26,42 @@
     "serve:firebase": "firebase serve --config %npm_package_config_project_mccode_pathFirebase% --port=5003 --only hosting,functions",
     "deploy:firebase": "firebase deploy --only hosting,functions"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsc --noEmit --skipLibCheck && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.{json}": [
+      "prettier --write"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^13.9.0",
     "@types/react": "^16.9.17",
+    "@typescript-eslint/eslint-plugin": "^4.4.0",
+    "@typescript-eslint/parser": "^4.4.0",
     "@zeit/next-sass": "^1.0.1",
     "autoprefixer": "^9.8.5",
     "cross-env": "^7.0.2",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.21.3",
+    "eslint-plugin-react-hooks": "^4.1.2",
     "firebase-tools": "^8.9.2",
     "fs-extra": "^9.0.1",
+    "husky": "^4.3.0",
     "js-yaml": "^3.13.1",
     "mkdirp": "^1.0.3",
     "next-compose-plugins": "^2.2.0",
@@ -45,6 +70,7 @@
     "postcss-custom-properties": "^9.1.1",
     "postcss-import": "^12.0.1",
     "postcss-nested": "^4.2.3",
+    "prettier": "2.1.2",
     "raw-loader": "^4.0.0",
     "rimraf": "^3.0.2",
     "serve": "^11.3.2",

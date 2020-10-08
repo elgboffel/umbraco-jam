@@ -2,10 +2,13 @@ const compose = require("next-compose-plugins");
 // const withSass = require("@zeit/next-sass");
 const path = require("path");
 // const siteMap = require("../../../site/siteMap");
-const withTM = require("next-transpile-modules")(["./src/feature", "./src/foundation"]);
+const withTM = require("next-transpile-modules")([
+  "./src/feature",
+  "./src/foundation",
+]);
 
-const nextConfig = {  
-  webpack: function (config) {    
+const nextConfig = {
+  webpack: function (config) {
     /* enable to read .md files */
     // config.module.rules.push({
     //   test: /\.md$/,
@@ -14,6 +17,10 @@ const nextConfig = {
 
     /* Resolve alias */
     config.resolve.alias["~"] = path.resolve(`${__dirname}/src`);
+    config.resolve.alias["@feature"] = path.resolve(`${__dirname}/src/feature`);
+    config.resolve.alias["@foundation"] = path.resolve(
+      `${__dirname}/src/foundation`
+    );
 
     return config;
   },
@@ -38,14 +45,17 @@ const nextConfig = {
   // }
 };
 
-module.exports = compose ([
+module.exports = compose(
+  [
     withTM,
-  // Setup css modules with sass
-  //[withSass, {
-  //   cssModules: true,
-  //   cssLoaderOptions: {
-  //     importLoaders: 1,
-  //     localIdentName: "[local]___[hash:base64:5]",
-  //   }
-  // }]
-], nextConfig);
+    // Setup css modules with sass
+    //[withSass, {
+    //   cssModules: true,
+    //   cssLoaderOptions: {
+    //     importLoaders: 1,
+    //     localIdentName: "[local]___[hash:base64:5]",
+    //   }
+    // }]
+  ],
+  nextConfig
+);

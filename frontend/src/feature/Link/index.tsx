@@ -4,33 +4,29 @@ import { siteMap } from "~/foundation/umbracoContent/siteMap.js";
 import { SiteMapObj } from "~/foundation/umbracoContent/typings";
 
 interface LinkProps {
-    id: string|number,
-    name?: string
+  id: string | number;
+  name?: string;
 }
 
 const Link: React.FC<LinkProps> = (props) => {
-    const {id, name} = props;
-    const siteMapObj: SiteMapObj = siteMap;
-    
-    const page = siteMapObj[id];
+  const { id, name } = props;
+  const siteMapObj: SiteMapObj = siteMap;
 
-    if (!page) return <></>;
+  const page = siteMapObj[id];
 
-    const link = {
-        href: `/${page.template}`,
-        as: page.url
-    };
-    
-    return (
-        <NextLink {...link}>
-            <a>
-                {props.children
-                    ? props.children
-                    : name ?? page.id
-                }
-            </a>
-        </NextLink>
-    )
+  if (!page) return <></>;
+
+  const link = {
+    href: `/${page.template}`,
+    as: page.url,
+  };
+
+  return (
+    <NextLink {...link}>
+      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+      <a>{props.children ? props.children : name ?? page.id}</a>
+    </NextLink>
+  );
 };
 
 export default Link;
