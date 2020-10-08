@@ -16,6 +16,7 @@
     }
   },
   "scripts": {
+    "eslint": "eslint src",
     "clean": "rimraf dist",
     "dev": "next dev %npm_package_config_project_mccode_path%",
     "build": "npm run build:next && npm run build:server",
@@ -28,7 +29,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsc && lint-staged"
+      "pre-commit": "tsc --noEmit --skipLibCheck && lint-staged"
     }
   },
   "lint-staged": {
@@ -72,6 +73,7 @@
     "postcss-import": "^12.0.1",
     "postcss-nested": "^4.2.3",
     "prettier": "2.1.2",
+    "pretty-quick": "^3.0.2",
     "raw-loader": "^4.0.0",
     "rimraf": "^3.0.2",
     "serve": "^11.3.2",
