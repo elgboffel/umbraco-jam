@@ -28,11 +28,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsc --noEmit --skipLibCheck && lint-staged"
+      "pre-commit": "tsc && lint-staged"
     }
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
+    "*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ],
     "*.{json}": [
