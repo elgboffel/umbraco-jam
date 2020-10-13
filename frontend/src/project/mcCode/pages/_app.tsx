@@ -1,5 +1,6 @@
 ﻿import React from "react";
 import App from "next/app";
+import "@foundation/scss/index.scss";
 import SiteLayout from "@feature/SiteLayout";
 
 class Site extends App {

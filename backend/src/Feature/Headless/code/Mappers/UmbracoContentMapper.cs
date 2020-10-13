@@ -41,9 +41,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 .Where(property => !propertiesToExclude.Contains(property.Name))
                 .ToDictionary(property => property.Name, property => property.GetValue(content, null));
 
-            var templateAlias = content.ContentType.Alias;
-            
-            properties.Add("template", char.ToUpper(templateAlias[0]) + templateAlias.Substring(1));
+            properties.Add("template", FirstCharToUpper(content.ContentType?.Alias));
             
             if (!content.Properties.Any()) return properties;
 
@@ -78,7 +76,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                     case var x when (sourceValue.Contains("umb://document")):
                         value = TryParseJson(sourceValue) 
                             ? MapUdisToPath(JsonConvert.DeserializeObject(sourceValue) as JToken, _helper)
-                            : GetUmbracoContent(sourceValue, _helper);
+                            : GetUmbracoUrl(sourceValue, _helper);
                         break;
                     default:
                         value = sourceValue;
@@ -125,7 +123,8 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                             value.Replace(GetUmbracoMedia(helper, stringifiedValue));
                             break;
                         case var x when (stringifiedValue.Contains("umb://document")):
-                            token.Add("url", GetUmbracoContent(stringifiedValue, helper));
+                            token.Add("url", GetUmbracoUrl(stringifiedValue, helper));
+                            token.Add("template", GetUmbracoTemplateAlias(stringifiedValue, helper));
                             break;
                     }
                 }
@@ -143,13 +142,21 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 : $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Authority}{media.Url}";
         }        
         
-        private string GetUmbracoContent(string value, UmbracoHelper helper)
+        private string GetUmbracoUrl(string value, UmbracoHelper helper)
         {
             var content = helper.Content(value);
 
             return content == null 
                 ? string.Empty 
                 : $"{content.Url}";
+        }        
+        private string GetUmbracoTemplateAlias(string value, UmbracoHelper helper)
+        {
+            var content = helper.Content(value);
+
+            return content == null 
+                ? string.Empty 
+                : $"{FirstCharToUpper(content.ContentType.Alias)}";
         }
         
         private string GetStringBetween(string token, string first, string second)
@@ -211,7 +218,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                         case var x when value.Contains("{localLink:umb"):
                             link.SetAttributeValue(
                                 "href", 
-                                GetUmbracoContent(GetStringBetween(value,"{localLink:", "}"), helper));
+                                GetUmbracoUrl(GetStringBetween(value,"{localLink:", "}"), helper));
                             break;
                         default:
                             continue;
@@ -237,6 +244,13 @@ namespace UmbracoJAM.Feature.Headless.Mappers
 
 
             return doc.DocumentNode.InnerHtml;
+        }
+
+        private string FirstCharToUpper(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return string.Empty;
+
+            return char.ToUpper(value[0]) + value.Substring(1);
         }
     }
 }

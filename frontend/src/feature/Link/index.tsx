@@ -2,28 +2,21 @@
 import NextLink from "next/link";
 
 interface LinkProps {
-  template: string;
-  id?: string | number;
+  template?: string;
   url?: string;
   name?: string;
 }
 
 const Link: React.FC<LinkProps> = (props) => {
-  const { id, url, name, template } = props;
-  // const siteMapObj: SiteMapObj = siteMap;
+  const { url, name, template } = props;
 
-  // const page = siteMapObj[id];
-  //
-  // if (!page) return <></>;
+  if (!url) return null;
 
-  const link = {
-    href: `/${template}`,
-    as: url,
-  };
+  if (!template)
+    return <a href={url}>{props.children ? props.children : name}</a>;
 
   return (
-    <NextLink {...link}>
-      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+    <NextLink href={`/${template}`} as={url}>
       <a>{props.children ? props.children : name}</a>
     </NextLink>
   );

@@ -31,10 +31,11 @@ const Article: React.FC<ArticleProps> = ({
       <h1 className="mt-10">{heading}</h1>
       <div dangerouslySetInnerHTML={{ __html: bodyText }} />
       {singleLink && (
-        <Link url={singleLink.url} template="article">
+        <Link url={singleLink.url} template={singleLink.template}>
           Go to {singleLink.url}
         </Link>
       )}
+      {console.log(otherProps)}
     </article>
   );
 };
