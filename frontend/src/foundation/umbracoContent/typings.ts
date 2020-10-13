@@ -39,3 +39,8 @@ export interface Media {
 }
 
 export type Link = BaseContent;
+
+export interface LinkPicker {
+  name?: string;
+  url: string;
+}

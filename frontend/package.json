@@ -74,7 +74,6 @@
     "postcss-import": "^12.0.1",
     "postcss-nested": "^4.2.3",
     "prettier": "2.1.2",
-    "pretty-quick": "^3.0.2",
     "raw-loader": "^4.0.0",
     "rimraf": "^3.0.2",
     "serve": "^11.3.2",
@@ -88,7 +87,7 @@
     "firebase-functions": "^3.11.0",
     "framer-motion": "^1.7.0",
     "gray-matter": "^4.0.2",
-    "next": "^9.5.2",
+    "next": "^9.5.5",
     "react": "^16.12.0",
     "react-cloudimage-responsive": "^3.3.1",
     "react-dom": "^16.12.0"

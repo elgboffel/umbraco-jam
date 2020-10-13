@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Web;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
@@ -233,7 +231,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 
                     var att = img?.Attributes["src"];
                     var udi = img?.Attributes["data-udi"]?.Value;
-                    img?.SetAttributeValue("src", $"{GetUmbracoMedia(helper, udi)}{att.Value}");
+                    img.SetAttributeValue("src", $"{GetUmbracoMedia(helper, udi)}{att.Value}");
                 }  
             }
 

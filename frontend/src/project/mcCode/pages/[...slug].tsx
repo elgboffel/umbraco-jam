@@ -1,10 +1,10 @@
 ﻿import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import React from "react";
-import { BaseContent } from "~/foundation/umbracoContent/typings";
-import { toUrlString } from "~/foundation/utils/toUrlString";
 import { ParsedUrlQuery } from "querystring";
-import { Templates } from "~/feature/Templates";
+import { BaseContent } from "@foundation/umbracoContent/typings";
+import { Templates } from "@feature/Templates";
+import { toUrlString } from "@foundation/utils/toUrlString";
 
 const Page: NextPage<BaseContent> = ({ template, ...props }) => {
   const router = useRouter();

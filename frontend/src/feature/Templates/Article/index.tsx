@@ -1,6 +1,6 @@
 ﻿import { useRouter } from "next/router";
 import React from "react";
-import { BaseContent, Link as ILink } from "@foundation/umbracoContent/typings";
+import { BaseContent, LinkPicker } from "@foundation/umbracoContent/typings";
 import Image from "@feature/Image";
 import Link from "@feature/Link";
 
@@ -9,26 +9,32 @@ export interface ArticleProps extends BaseContent {
   lead: string;
   bodyText: string;
   media: string;
-  link: ILink;
+  singleUrlPicker: LinkPicker[];
 }
 
 const Article: React.FC<ArticleProps> = ({
   media,
   heading,
   bodyText,
-  link,
+  singleUrlPicker,
+  ...otherProps
 }) => {
   const router = useRouter();
+  const singleLink = singleUrlPicker ? singleUrlPicker[0] : null;
 
   if (router.isFallback) return <div>Spinner...</div>;
 
   return (
     <article className="container mx-auto px-4">
+      {console.log(otherProps)}
       {media && <Image url={media} />}
       <h1 className="mt-10">{heading}</h1>
       <div dangerouslySetInnerHTML={{ __html: bodyText }} />
-      <Link id={link?.id}>Go to {link?.name}</Link>
-      <button onClick={() => console.log("test")}>test</button>
+      {singleLink && (
+        <Link url={singleLink.url} template="article">
+          Go to {singleLink.url}
+        </Link>
+      )}
     </article>
   );
 };
