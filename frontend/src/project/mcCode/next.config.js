@@ -38,7 +38,7 @@ const nextConfig = {
 
     return config;
   },
-  distDir: "../../../dist/client",
+  distDir: "../../../dist/mcCode/client",
   trailingSlash: true,
   onDemandEntries: {
     // period (in ms) where the server will keep pages in the buffer

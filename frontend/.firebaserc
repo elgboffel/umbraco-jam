@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "mccode-60d3f"
+  },
+  "targets": {
+    "mccode-60d3f": {
+      "hosting": {
+        "mccode": [
+          "mccode"
+        ]
+      }
+    }
   }
 }

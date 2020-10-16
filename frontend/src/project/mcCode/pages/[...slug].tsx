@@ -8,7 +8,7 @@ import { toUrlString } from "@foundation/utils/toUrlString";
 
 const Page: NextPage<BaseContent> = ({ template, ...props }) => {
   const router = useRouter();
-  const templates: any = Templates;
+  const templates = Templates;
 
   if (router.isFallback) return <div>Loading...</div>;
 
@@ -19,8 +19,10 @@ const Page: NextPage<BaseContent> = ({ template, ...props }) => {
   return <Page {...props} />;
 };
 
-const toPaths = (array: Array<ParsedUrlQuery>) => {
-  return array.reduce((paths: any[], path: ParsedUrlQuery) => {
+type Paths = string | { params: ParsedUrlQuery };
+
+const toPaths = (array: Array<string>) => {
+  return array.reduce((paths: Paths[], path: string) => {
     if (!path) return paths;
 
     paths.push({
@@ -37,8 +39,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const content = await fetch(
     `${process.env.NEXT_PUBLIC_UMBRACO_BASE_PATH}/Umbraco/Api/Headless/GetAllPaths`
   );
-  const json = (await content.json()) as Array<ParsedUrlQuery>;
-  const paths = toPaths(json) as any;
+  const json = (await content.json()) as Array<string>;
+  const paths = toPaths(json);
 
   return {
     paths,

@@ -7,17 +7,14 @@ interface LinkProps {
   name?: string;
 }
 
-const Link: React.FC<LinkProps> = (props) => {
-  const { url, name, template } = props;
-
+const Link: React.FC<LinkProps> = ({ url, name, template, children }) => {
   if (!url) return null;
 
-  if (!template)
-    return <a href={url}>{props.children ? props.children : name}</a>;
+  if (!template) return <a href={url}>{children ? children : name}</a>;
 
   return (
     <NextLink href={`/${template}`} as={url}>
-      <a>{props.children ? props.children : name}</a>
+      <a>{children ? children : name}</a>
     </NextLink>
   );
 };

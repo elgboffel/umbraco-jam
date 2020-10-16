@@ -2,7 +2,7 @@
   "name": "umbraco-jam",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server/index.js",
+  "main": "dist/mcCode/server/index.js",
   "engines": {
     "node": "10"
   },
@@ -22,10 +22,10 @@
     "build": "npm run build:next && npm run build:server",
     "build:markdown": "ts-node ./build/umbraco-markdown",
     "build:next": "npm run clean && next build ./src/project/mcCode",
-    "build:server": "tsc --project ./src/project/mcCode/tsconfig-server.json --outDir dist/server",
+    "build:server": "tsc --project ./src/project/mcCode/tsconfig-server.json --outDir dist/mcCode/server",
     "start": "next start %npm_package_config_project_mccode_path%",
-    "serve:firebase": "firebase serve --config %npm_package_config_project_mccode_pathFirebase% --port=5003 --only hosting,functions",
-    "deploy:firebase": "firebase deploy --only hosting,functions"
+    "serve:firebase": "firebase serve --config %npm_package_config_project_mccode_pathFirebase% --port=5003 --only hosting:mcCode,functions",
+    "deploy:firebase": "firebase deploy --only hosting:mccode,functions"
   },
   "husky": {
     "hooks": {

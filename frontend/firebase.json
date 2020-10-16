@@ -12,8 +12,9 @@
       "**/public/**"
     ]
   },
-  "hosting": {
-    "public": "public",
+  "hosting": [{
+    "target": "mccode",
+    "public": "dist/mcCode",
     "rewrites": [
       {
         "source": "**/**",
@@ -46,7 +47,7 @@
       "**/.*",
       "**/node_modules/**"
     ]
-  },
+  }],
   "emulators": {
     "functions": {
       "port": 5001
