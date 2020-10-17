@@ -1,39 +1,43 @@
-﻿import Image from "~/feature/Image";
-
-﻿﻿import {NextPage} from "next";
+﻿import { useRouter } from "next/router";
+import React from "react";
+﻿import {NextPage} from "next";
 import Image from "@foundation/shared-components/Image";
 import Link from "@foundation/shared-components/Link";
-import { useRouter } from 'next/router'
-import React, {FunctionComponent} from "react";
-import Link from "~/feature/Link";
-import {BaseContent, Media, Link as ILink} from "~/foundation/umbracoContent/typings";
 
 export interface ArticleProps extends BaseContent {
-    heading: string,
-    lead: string,
-    bodyText: string,
-    media: string,
-    link: ILink
+  heading: string;
+  lead: string;
+  bodyText: string;
+  media: string;
+  singleUrlPicker: LinkPicker[];
 }
 
-const Article: FunctionComponent<ArticleProps> = ({media, heading, bodyText, link, ...props}) => {
-    const router = useRouter();
+const Article: React.FC<ArticleProps> = ({
+  media,
+  heading,
+  bodyText,
+  singleUrlPicker,
+  ...otherProps
+}) => {
+  const router = useRouter();
+  const singleLink = singleUrlPicker ? singleUrlPicker[0] : null;
 
-    if (router.isFallback)
-        return <div>Loading...</div>
-    
-    return (
-        <article className="container mx-auto px-4">
-            {media && (
-                <Image url={media} />
-            )}
-            <h1 className="mt-10">{heading}</h1>
-            <div  dangerouslySetInnerHTML={{__html: bodyText}}/>
-            <Link id={link?.id}>
-                Go to {link?.name}
-            </Link>
-        </article>
-    )
-}
+  if (router.isFallback) return <div>Spinner...</div>;
+
+  return (
+    <article className="container mx-auto px-4">
+      {console.log(otherProps)}
+      {media && <Image url={media} />}
+      <h1 className="mt-10">{heading}</h1>
+      <div dangerouslySetInnerHTML={{ __html: bodyText }} />
+      {singleLink && (
+        <Link url={singleLink.url} template={singleLink.template}>
+          Go to {singleLink.url}
+        </Link>
+      )}
+      {console.log(otherProps)}
+    </article>
+  );
+};
 
 export default Article;

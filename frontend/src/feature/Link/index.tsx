@@ -1,36 +1,22 @@
 ﻿import React from "react";
 import NextLink from "next/link";
-import { siteMap } from "~/foundation/umbracoContent/siteMap.js";
-import { SiteMapObj } from "~/foundation/umbracoContent/typings";
 
 interface LinkProps {
-    id: string|number,
-    name?: string
+  template?: string;
+  url?: string;
+  name?: string;
 }
 
-const Link: React.FC<LinkProps> = (props) => {
-    const {id, name} = props;
-    const siteMapObj: SiteMapObj = siteMap;
-    
-    const page = siteMapObj[id];
+const Link: React.FC<LinkProps> = ({ url, name, template, children }) => {
+  if (!url) return null;
 
-    if (!page) return <></>;
+  if (!template) return <a href={url}>{children ? children : name}</a>;
 
-    const link = {
-        href: `/${page.template}`,
-        as: page.url
-    };
-    
-    return (
-        <NextLink {...link}>
-            <a>
-                {props.children
-                    ? props.children
-                    : name ?? page.id
-                }
-            </a>
-        </NextLink>
-    )
+  return (
+    <NextLink href={`/${template}`} as={url}>
+      <a>{children ? children : name}</a>
+    </NextLink>
+  );
 };
 
 export default Link;

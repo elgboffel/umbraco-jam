@@ -21,13 +21,16 @@
     "paths": {
       "~*": [
         "./src*"
-      ]
+      ],
+      "@feature*": ["./src/feature*"],
+      "@foundation*": ["./src/foundation*"]
     }
   },
   "exclude": [
     "node_modules",
     "out",
-    ".next"
+    ".next",
+    "dist"
   ],
   "include": [
     "next-env.d.ts",

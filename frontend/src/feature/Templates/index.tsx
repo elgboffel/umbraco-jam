@@ -1,5 +1,10 @@
-﻿import Article from "~/feature/Templates/Article";
+﻿import Article from "@feature/Templates/Article";
+import React from "react";
 
-export const Templates = {
-    Article
+interface TemplatesType {
+  [key: string]: React.FC<any>;
 }
+
+export const Templates: TemplatesType = {
+  Article,
+};

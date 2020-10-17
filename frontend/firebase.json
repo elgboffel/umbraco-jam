@@ -12,12 +12,34 @@
       "**/public/**"
     ]
   },
-  "hosting": {
-    "public": "public",
+  "hosting":[{
+    "target": "mccode",
+    "public": "dist/mcCode",
     "rewrites": [
       {
         "source": "**/**",
         "function": "server"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(html)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, stale-while-revalidat"
+          }
+        ]
+      },
+      {
+        "source":
+        "**/*.@(jpg|jpeg|gif|png|svg|webp|js|css|eot|otf|ttf|ttc|woff|woff2)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=604800"
+          }
+        ]
       }
     ],
     "ignore": [
@@ -25,7 +47,7 @@
       "**/.*",
       "**/node_modules/**"
     ]
-  },
+  }],
   "emulators": {
     "functions": {
       "port": 5001
