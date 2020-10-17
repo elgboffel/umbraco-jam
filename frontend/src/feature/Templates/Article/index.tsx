@@ -1,8 +1,8 @@
 ﻿import { useRouter } from "next/router";
 import React from "react";
-﻿import {NextPage} from "next";
 import Image from "@foundation/shared-components/Image";
 import Link from "@foundation/shared-components/Link";
+import { BaseContent, LinkPicker } from "@foundation/umbracoContent/typings";
 
 export interface ArticleProps extends BaseContent {
   heading: string;
