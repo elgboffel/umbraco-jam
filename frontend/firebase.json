@@ -12,7 +12,7 @@
       "**/public/**"
     ]
   },
-  "hosting": [{
+  "hosting":[{
     "target": "mccode",
     "public": "dist/mcCode",
     "rewrites": [

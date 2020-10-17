@@ -8,7 +8,7 @@ const isDev = process.env.NODE_ENV === "development";
 
 const app = next({
   dev: isDev,
-  conf: { distDir: "dist/client" },
+  conf: { distDir: "dist/mcCode/client" },
 });
 
 const handle = app.getRequestHandler();
