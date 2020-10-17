@@ -2,6 +2,7 @@
 import React from "react";
 import App from "next/app";
 import SiteLayout from "~/feature/SiteLayout";
+import SiteLayout from "@feature/Layouts/SiteLayout";
 
 class Site extends App {
     render() {

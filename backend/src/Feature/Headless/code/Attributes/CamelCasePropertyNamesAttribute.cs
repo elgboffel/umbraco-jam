@@ -14,7 +14,7 @@ namespace UmbracoJAM.Feature.Headless.Attributes
 {
     public class CamelCasePropertyNamesAttribute : ActionFilterAttribute
     {
-        private JsonMediaTypeFormatter _camelCasingFormatter = new JsonMediaTypeFormatter();
+        private readonly JsonMediaTypeFormatter _camelCasingFormatter = new JsonMediaTypeFormatter();
 
         public CamelCasePropertyNamesAttribute()
         {

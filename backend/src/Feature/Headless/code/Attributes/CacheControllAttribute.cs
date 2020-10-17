@@ -6,7 +6,7 @@ namespace UmbracoJAM.Feature.Headless.Attributes
 {
     public class CacheControlAttribute : ActionFilterAttribute
     {
-        public int MaxAge { get; set; }
+        private int MaxAge { get; set; }
 
         public CacheControlAttribute()
         {

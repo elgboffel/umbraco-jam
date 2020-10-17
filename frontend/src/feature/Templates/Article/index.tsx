@@ -1,6 +1,8 @@
 ﻿import Image from "~/feature/Image";
 
-﻿﻿﻿import {NextPage} from "next";
+﻿﻿import {NextPage} from "next";
+import Image from "@foundation/shared-components/Image";
+import Link from "@foundation/shared-components/Link";
 import { useRouter } from 'next/router'
 import React, {FunctionComponent} from "react";
 import Link from "~/feature/Link";

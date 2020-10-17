@@ -224,21 +224,19 @@ namespace UmbracoJAM.Feature.Headless.Mappers
 
             var images = doc.DocumentNode?.SelectNodes("//img[@src]");
 
-            if (images != null && images.Any())
+            if (images == null || !images.Any()) return doc.DocumentNode?.InnerHtml;
+            
+            foreach (var img in images)
             {
-                foreach (var img in images)
-                {
-                    if (img == null) 
-                        continue;
-                
-                    var att = img?.Attributes["src"];
-                    var udi = img?.Attributes["data-udi"]?.Value;
-                    img?.SetAttributeValue("src", $"{GetUmbracoMedia(helper, udi)}{att.Value}");
-                }  
+                if (img == null) 
+                    continue;
+            
+                var att = img?.Attributes["src"];
+                var udi = img?.Attributes["data-udi"]?.Value;
+                img.SetAttributeValue("src", $"{GetUmbracoMedia(helper, udi)}{att.Value}");
             }
 
-
-            return doc.DocumentNode.InnerHtml;
+            return doc.DocumentNode?.InnerHtml;
         }
     }
 }
