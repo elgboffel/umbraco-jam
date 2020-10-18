@@ -15,6 +15,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
     {
 
         private readonly UmbracoHelper _helper;
+        private readonly IPublishedContent _content;
         private readonly string[] _propertiesToExclude = { "ChildrenForAllCultures", "Children", "Parent" };
         
         public UmbracoContentMapper(UmbracoHelper helper)
@@ -42,7 +43,8 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 .ToDictionary(property => property.Name, property => property.GetValue(content, null));
 
             properties.Add("template", FirstCharToUpper(content.ContentType?.Alias));
-            
+            properties["url"] = 
+                
             if (!content.Properties.Any()) return properties;
 
             var umbracoProperties = MapUmbracoProperties(content.Properties);
@@ -60,7 +62,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 object value;
                 var sourceValue = property.GetSourceValue()?.ToString();
                 
-                if (string.IsNullOrEmpty(sourceValue)) continue;
+                if (string.IsNullOrEmpty(sourceValue) || IsStringEmptyArray(sourceValue)) continue;
 
                 switch (true)
                 {
@@ -72,6 +74,11 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                         break;
                     case var x when (sourceValue.Contains("umb://media")):
                         value = GetUmbracoMedia(_helper, sourceValue);
+                        break;
+                    case var x when (property.PropertyType.EditorAlias == "Umbraco.MultiUrlPicker"):
+                        value = TryParseJson(sourceValue) 
+                            ? MapUdisToPath(JsonConvert.DeserializeObject(sourceValue) as JToken, _helper)
+                            : GetUmbracoUrl(sourceValue, _helper);
                         break;
                     case var x when (sourceValue.Contains("umb://document")):
                         value = TryParseJson(sourceValue) 
@@ -129,8 +136,10 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                     }
                 }
             }
-            
-            return tokens;
+
+            return tokens.Any() 
+                ? tokens 
+                : null;
         }
 
         private string GetUmbracoMedia(UmbracoHelper helper, string value)
@@ -242,6 +251,13 @@ namespace UmbracoJAM.Feature.Headless.Mappers
             }
 
             return doc.DocumentNode?.InnerHtml;
+        }
+
+        private bool IsStringEmptyArray(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return true;
+
+            return value == "[]";
         }
 
         private string FirstCharToUpper(string value)

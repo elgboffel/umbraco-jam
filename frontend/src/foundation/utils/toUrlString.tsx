@@ -1,4 +1,4 @@
-﻿export function toUrlString(array: string | string[] | undefined): string {
+export function toUrlString(array: string | string[] | undefined): string {
   if (!array) return "";
 
   if (typeof array === "string") return `/${array}`;

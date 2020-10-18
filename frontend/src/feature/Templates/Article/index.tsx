@@ -35,7 +35,6 @@ const Article: React.FC<ArticleProps> = ({
           Go to {singleLink.url}
         </Link>
       )}
-      {console.log(otherProps)}
     </article>
   );
 };

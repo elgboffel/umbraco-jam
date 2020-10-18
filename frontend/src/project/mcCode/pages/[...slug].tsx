@@ -1,4 +1,4 @@
-﻿import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import React from "react";
 import { ParsedUrlQuery } from "querystring";
