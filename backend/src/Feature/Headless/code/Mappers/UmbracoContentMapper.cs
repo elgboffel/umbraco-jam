@@ -43,8 +43,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 .ToDictionary(property => property.Name, property => property.GetValue(content, null));
 
             properties.Add("template", FirstCharToUpper(content.ContentType?.Alias));
-            properties["url"] = 
-                
+
             if (!content.Properties.Any()) return properties;
 
             var umbracoProperties = MapUmbracoProperties(content.Properties);
