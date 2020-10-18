@@ -38,10 +38,10 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - v1-nuget-deps-{{ checksum "./backend/src/Project/UmbracoJAM/code/packages.config" }}
-          # Find the most recently generated cache used
-          - v1-nuget-deps-
+          keys:
+            - v1-nuget-deps-{{ checksum "./backend/src/Project/UmbracoJAM/code/packages.config" }}
+            # Find the most recently generated cache used
+            - v1-nuget-deps-
       - run:
           name: "Running NuGet"
           command: nuget restore $env:PATH_SOLUTION
