@@ -15,7 +15,6 @@ namespace UmbracoJAM.Feature.Headless.Mappers
     {
 
         private readonly UmbracoHelper _helper;
-        private readonly IPublishedContent _content;
         private readonly string[] _propertiesToExclude = { "ChildrenForAllCultures", "Children", "Parent" };
         
         public UmbracoContentMapper(UmbracoHelper helper)
@@ -42,8 +41,11 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 .Where(property => !propertiesToExclude.Contains(property.Name))
                 .ToDictionary(property => property.Name, property => property.GetValue(content, null));
 
-            properties.Add("template", FirstCharToUpper(content.ContentType?.Alias));
+            properties.Add("template", FirstCharToUpper(content.GetTemplateAlias()));
 
+            if (content.HasProperty("umbracoInternalRedirectId"))
+                properties["Url"] = GetUmbracoUrl(content.GetProperty("umbracoInternalRedirectId")?.Value()?.ToString(), _helper);
+            
             if (!content.Properties.Any()) return properties;
 
             var umbracoProperties = MapUmbracoProperties(content.Properties);

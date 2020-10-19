@@ -91,6 +91,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
 
             var contentList = contentAtRoot
                 .DescendantsOrSelf<IPublishedContent>()
+                .Where(x => x.TemplateId > 0)
                 .Select(x => _contentMapper.MapPublishedContent(x));
 
             return Json(contentList, _camelCasingSerializerSettings);
@@ -110,6 +111,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
 
             var pathsList = contentAtRoot
                 .DescendantsOrSelf<IPublishedContent>()
+                .Where(x => x.TemplateId > 0)
                 .Select(x => _contentMapper.MapPublishedPath(x))
                 .Where(x => x.Any());
 
