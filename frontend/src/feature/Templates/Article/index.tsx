@@ -1,4 +1,4 @@
-﻿import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import React from "react";
 import Image from "@foundation/shared-components/Image";
 import Link from "@foundation/shared-components/Link";

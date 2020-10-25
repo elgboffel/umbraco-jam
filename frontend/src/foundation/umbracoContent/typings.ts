@@ -14,6 +14,15 @@
   writerName: string;
   updateDate: Date;
   url: string;
+  context?: Context;
+}
+
+export interface Context {
+  settings: {
+    pageNavigation: {
+      navigation: LinkPicker[];
+    };
+  };
 }
 
 export interface SiteMapObj {

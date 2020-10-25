@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Img, { CloudimageProvider } from "react-cloudimage-responsive";
@@ -14,6 +14,10 @@ const Image: React.FC<ImageProps> = ({ url }) => {
   };
 
   if (!url) return <></>;
+
+  if (process.env.NODE_ENV === "development") {
+    return <img src={url} alt="" />;
+  }
 
   return (
     <CloudimageProvider config={cloudimageConfig}>

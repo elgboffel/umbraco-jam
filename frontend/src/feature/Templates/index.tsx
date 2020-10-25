@@ -1,4 +1,4 @@
-﻿import Article from "@feature/Templates/Article";
+import Article from "@feature/Templates/Article";
 import React from "react";
 import FrontPage from "@feature/Templates/FrontPage";
 

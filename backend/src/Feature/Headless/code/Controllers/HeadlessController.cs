@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net.Http.Formatting;
 using System.Web.Http.Results;
 using System.Web.Mvc;
 using Examine;
@@ -12,7 +11,6 @@ using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.WebApi;
-using UmbracoJAM.Feature.Headless.Attributes;
 using UmbracoJAM.Feature.Headless.Examine;
 using UmbracoJAM.Feature.Headless.Mappers;
 
@@ -50,7 +48,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
             if (content == null) 
                 throw new NoNullAllowedException(nameof(content));
 
-            var mappedContent = _contentMapper.MapPublishedContent(content);
+            var mappedContent = _contentMapper.MapPublishedContent(content, true);
 
             return Json(mappedContent, _camelCasingSerializerSettings);
         }
@@ -71,7 +69,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
             if (content == null) 
                 throw new NoNullAllowedException(nameof(content));
             
-            var mappedContent = _contentMapper.MapPublishedContent(content);
+            var mappedContent = _contentMapper.MapPublishedContent(content, true);
 
             return Json(mappedContent, _camelCasingSerializerSettings);
         }
@@ -89,12 +87,12 @@ namespace UmbracoJAM.Feature.Headless.Controllers
             if (contentAtRoot == null)
                 throw new NoNullAllowedException(nameof(contentAtRoot));
 
-            var contentList = contentAtRoot
-                .DescendantsOrSelf<IPublishedContent>()
-                .Where(x => x.TemplateId > 0)
-                .Select(x => _contentMapper.MapPublishedContent(x));
+            var allContent =
+                from content in contentAtRoot.DescendantsOrSelf<IPublishedContent>()
+                where content.TemplateId > 0
+                select _contentMapper.MapPublishedContent(content, true);
 
-            return Json(contentList, _camelCasingSerializerSettings);
+            return Json(allContent, _camelCasingSerializerSettings);
         }
         
         /// <summary>

@@ -5,18 +5,23 @@ import { ParsedUrlQuery } from "querystring";
 import { BaseContent } from "@foundation/umbracoContent/typings";
 import { Templates } from "@feature/Templates";
 import { toUrlString } from "@foundation/utils/toUrlString";
+import SiteLayout from "@feature/Layouts/SiteLayout";
 
-const Page: NextPage<BaseContent> = ({ template, ...props }) => {
+const Page: NextPage<BaseContent> = ({ template, context, ...props }) => {
   const router = useRouter();
   const templates = Templates;
-
+  console.log(template, props);
   if (router.isFallback) return <div>Loading...</div>;
 
-  const Page = templates[template];
+  const Template = templates[template];
 
   if (!Page) return <>No page template/component found</>;
 
-  return <Page {...props} />;
+  return (
+    <SiteLayout context={context}>
+      <Template {...props} />
+    </SiteLayout>
+  );
 };
 
 type Paths = string | { params: ParsedUrlQuery };

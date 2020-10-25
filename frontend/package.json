@@ -48,6 +48,7 @@
     "@types/react": "^16.9.17",
     "@typescript-eslint/eslint-plugin": "^4.4.0",
     "@typescript-eslint/parser": "^4.4.0",
+    "@types/styled-components": "^5.1.4",
     "@zeit/next-sass": "^1.0.1",
     "autoprefixer": "^9.8.5",
     "cross-env": "^7.0.2",
@@ -90,6 +91,7 @@
     "next": "^9.5.5",
     "react": "^16.12.0",
     "react-cloudimage-responsive": "^3.3.1",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "styled-components": "^5.2.0"
   }
 }

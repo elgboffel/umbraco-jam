@@ -13,10 +13,20 @@ namespace UmbracoJAM.Feature.Headless.Mappers
 {
     public class UmbracoContentMapper
     {
-
         private readonly UmbracoHelper _helper;
-        private readonly string[] _propertiesToExclude = { "ChildrenForAllCultures", "Children", "Parent" };
-        
+
+        private readonly string[] _propertiesToExclude =
+        {
+            "ChildrenForAllCultures",
+            "Children",
+            "Parent",
+            "itemType",
+            "writerName",
+            "writerId",
+            "creatorId",
+            "templateId"
+        };
+
         public UmbracoContentMapper(UmbracoHelper helper)
         {
             _helper = helper ?? throw new ArgumentException(nameof(helper));
@@ -28,24 +38,74 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 .Split('/')
                 .Where(x => !x.IsNullOrWhiteSpace());
         }
-        
+
+        public Dictionary<string, object> MapUmbracoContext(IPublishedContent content)
+        {
+            var settings =
+                from child in content.AncestorOrSelf("culture")?.Children
+                where child.ContentType.Alias == "settings"
+                select child;
+
+            var defaultSettings = settings.First();
+
+
+            var context = new Dictionary<string, object>();
+
+            if (defaultSettings != null)
+                context.Add("settings", MapUmbracoSettings(defaultSettings));
+
+            return context;
+        }
+
+        public Dictionary<string, object> MapUmbracoSettings(IPublishedContent settings)
+        {
+            if (settings == null)
+                return null;
+
+            var allDefaultSettings = settings
+                .Descendants<IPublishedContent>()
+                .ToList();
+
+            if (!allDefaultSettings.Any())
+                return null;
+
+            var allSettings = new Dictionary<string, object>();
+
+            foreach (var setting in allDefaultSettings)
+            {
+                var mappedSetting = MapPublishedContent(setting);
+                allSettings.Add(setting.ContentType.Alias, mappedSetting);
+            }
+
+            return allSettings;
+        }
+
         public Dictionary<string, object> MapPublishedContent(
             IPublishedContent content,
+            bool withContext = false,
             string[] propertiesToExclude = null)
         {
             propertiesToExclude = propertiesToExclude ?? _propertiesToExclude;
 
             var type = typeof(IPublishedContent);
-            
+
             var properties = type.GetProperties()
                 .Where(property => !propertiesToExclude.Contains(property.Name))
                 .ToDictionary(property => property.Name, property => property.GetValue(content, null));
 
+            if (withContext)
+                properties.Add("context", MapUmbracoContext(content));
+
             properties.Add("template", FirstCharToUpper(content.GetTemplateAlias()));
+            properties.Add("authentication", new
+            {
+                isProtected = _helper.MembershipHelper.IsProtected(content.Path),
+            });
 
             if (content.HasProperty("umbracoInternalRedirectId"))
-                properties["Url"] = GetUmbracoUrl(content.GetProperty("umbracoInternalRedirectId")?.Value()?.ToString(), _helper);
-            
+                properties["Url"] = GetUmbracoUrl(content.GetProperty("umbracoInternalRedirectId")?.Value()?.ToString(),
+                    _helper);
+
             if (!content.Properties.Any()) return properties;
 
             var umbracoProperties = MapUmbracoProperties(content.Properties);
@@ -62,7 +122,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
             {
                 object value;
                 var sourceValue = property.GetSourceValue()?.ToString();
-                
+
                 if (string.IsNullOrEmpty(sourceValue) || IsStringEmptyArray(sourceValue)) continue;
 
                 switch (true)
@@ -77,12 +137,12 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                         value = GetUmbracoMedia(_helper, sourceValue);
                         break;
                     case var x when (property.PropertyType.EditorAlias == "Umbraco.MultiUrlPicker"):
-                        value = TryParseJson(sourceValue) 
+                        value = TryParseJson(sourceValue)
                             ? MapUdisToPath(JsonConvert.DeserializeObject(sourceValue) as JToken, _helper)
                             : GetUmbracoUrl(sourceValue, _helper);
                         break;
                     case var x when (sourceValue.Contains("umb://document")):
-                        value = TryParseJson(sourceValue) 
+                        value = TryParseJson(sourceValue)
                             ? MapUdisToPath(JsonConvert.DeserializeObject(sourceValue) as JToken, _helper)
                             : GetUmbracoUrl(sourceValue, _helper);
                         break;
@@ -96,24 +156,24 @@ namespace UmbracoJAM.Feature.Headless.Mappers
 
             return props;
         }
-        
+
         private object ConvertNestedContentSourceValueToObject(string value)
         {
             var valueToConvert = value?
                 .Replace(@"\", string.Empty)
                 .Replace("\"[", "[")
                 .Replace("]\"", "]")
-                .Replace("rn","");
-            
+                .Replace("rn", "");
+
             return valueToConvert == null ? null : JsonConvert.DeserializeObject(valueToConvert);
         }
-        
+
         private object MapUdisToPath(JToken jtoken, UmbracoHelper helper)
         {
             if (jtoken == null) return null;
-            
+
             var tokens = jtoken.Children<JObject>().ToList();
-            
+
             foreach (var token in tokens)
             {
                 var properties = token.Properties().ToList();
@@ -121,7 +181,7 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 {
                     var value = property.Value;
                     var stringifiedValue = value.ToString();
-                    
+
                     switch (true)
                     {
                         case var x when value.Children().Any():
@@ -138,8 +198,8 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 }
             }
 
-            return tokens.Any() 
-                ? tokens 
+            return tokens.Any()
+                ? tokens
                 : null;
         }
 
@@ -147,41 +207,42 @@ namespace UmbracoJAM.Feature.Headless.Mappers
         {
             var media = helper.Media(value);
 
-            return media == null 
-                ? string.Empty 
+            return media == null
+                ? string.Empty
                 : $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Authority}{media.Url}";
-        }        
-        
+        }
+
         private string GetUmbracoUrl(string value, UmbracoHelper helper)
         {
             var content = helper.Content(value);
 
-            return content == null 
-                ? string.Empty 
+            return content == null
+                ? string.Empty
                 : $"{content.Url}";
-        }        
+        }
+
         private string GetUmbracoTemplateAlias(string value, UmbracoHelper helper)
         {
             var content = helper.Content(value);
 
-            return content == null 
-                ? string.Empty 
+            return content == null
+                ? string.Empty
                 : $"{FirstCharToUpper(content.ContentType.Alias)}";
         }
-        
+
         private string GetStringBetween(string token, string first, string second)
-        {            
+        {
             if (!token.Contains(first)) return "";
 
-            var afterFirst = token.Split(new[] { first }, StringSplitOptions.None)[1];
+            var afterFirst = token.Split(new[] {first}, StringSplitOptions.None)[1];
 
             if (!afterFirst.Contains(second)) return "";
 
-            var result = afterFirst.Split(new[] { second }, StringSplitOptions.None)[0];
+            var result = afterFirst.Split(new[] {second}, StringSplitOptions.None)[0];
 
             return result;
         }
-        
+
         private bool TryParseJson(string value)
         {
             try
@@ -194,19 +255,19 @@ namespace UmbracoJAM.Feature.Headless.Mappers
                 return false;
             }
         }
-        
+
         private bool IsHtml(string text)
         {
             var doc = new HtmlDocument();
             doc.LoadHtml(text);
             return !HtmlIsJustText(doc.DocumentNode);
         }
-        
+
         private bool HtmlIsJustText(HtmlNode rootNode)
         {
             return rootNode.Descendants().All(n => n.NodeType == HtmlNodeType.Text);
         }
-        
+
         private string MapUdiInHtml(string html, UmbracoHelper helper)
         {
             var doc = new HtmlDocument();
@@ -223,29 +284,29 @@ namespace UmbracoJAM.Feature.Headless.Mappers
 
                     switch (true)
                     {
-                        case var x when value.ContainsAny(new [] {"https://", "http://"}):
+                        case var x when value.ContainsAny(new[] {"https://", "http://"}):
                             continue;
                         case var x when value.Contains("{localLink:umb"):
                             link.SetAttributeValue(
-                                "href", 
-                                GetUmbracoUrl(GetStringBetween(value,"{localLink:", "}"), helper));
+                                "href",
+                                GetUmbracoUrl(GetStringBetween(value, "{localLink:", "}"), helper));
                             break;
                         default:
                             continue;
                     }
-                }  
+                }
             }
 
 
             var images = doc.DocumentNode?.SelectNodes("//img[@src]");
 
             if (images == null || !images.Any()) return doc.DocumentNode?.InnerHtml;
-            
+
             foreach (var img in images)
             {
-                if (img == null) 
+                if (img == null)
                     continue;
-            
+
                 var att = img?.Attributes["src"];
                 var udi = img?.Attributes["data-udi"]?.Value;
                 img.SetAttributeValue("src", $"{GetUmbracoMedia(helper, udi)}{att.Value}");
