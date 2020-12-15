@@ -7,7 +7,7 @@ using Umbraco.Core;
 using Umbraco.Core.Composing;
 using Umbraco.Examine;
 
-namespace UmbracoJAM.Feature.Headless.Examine
+namespace UmbracoJAM.Feature.UmbracoHeadless.Examine
 {
     public class ExamineEvents : IComponent
     {

@@ -3,12 +3,14 @@ import React from "react";
 import Image from "@foundation/shared-components/Image";
 import Link from "@foundation/shared-components/Link";
 import { BaseContent, LinkPicker } from "@foundation/umbracoContent/typings";
+import Ribbons from "@feature/Ribbons";
 
 export interface ArticleProps extends BaseContent {
   heading: string;
   lead: string;
   bodyText: string;
   media: string;
+  ribbons: any;
   singleUrlPicker: LinkPicker[];
 }
 
@@ -17,6 +19,7 @@ const Article: React.FC<ArticleProps> = ({
   heading,
   bodyText,
   singleUrlPicker,
+  ribbons,
   ...otherProps
 }) => {
   const router = useRouter();
@@ -26,8 +29,7 @@ const Article: React.FC<ArticleProps> = ({
 
   return (
     <article className="container mx-auto px-4">
-      {console.log(otherProps)}
-      {media && <Image url={media} />}
+      {media && <Image src={media} width={1280} height={600} alt="" />}
       <h1 className="mt-10">{heading}</h1>
       <div dangerouslySetInnerHTML={{ __html: bodyText }} />
       {singleLink && (
@@ -35,6 +37,7 @@ const Article: React.FC<ArticleProps> = ({
           Go to {singleLink.url}
         </Link>
       )}
+      <Ribbons ribbons={ribbons} />
     </article>
   );
 };

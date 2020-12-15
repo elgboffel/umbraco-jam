@@ -46,6 +46,14 @@ const nextConfig = {
     // number of pages that should be kept simultaneously without being disposed
     pagesBufferLength: 2,
   },
+  images: {
+    deviceSizes: [420, 620, 768, 1024, 1280],
+    imageSizes: [400],
+    iconSizes: [],
+    domains: ["local.umbraco-jam.dk"],
+    path: "/_next/image",
+    loader: "default",
+  },
   // Old way of ssg before getStaticProps and getStaticPaths
   // exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
   //

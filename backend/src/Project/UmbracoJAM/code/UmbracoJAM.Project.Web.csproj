@@ -433,9 +433,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Feature\Headless\code\UmbracoJAM.Feature.Headless.csproj">
+    <ProjectReference Include="..\..\..\Feature\Headless\code\UmbracoJAM.Feature.UmbracoHeadless.csproj">
       <Project>{320c2c42-23ec-45e0-b6c5-0c9063245b95}</Project>
-      <Name>UmbracoJAM.Feature.Headless</Name>
+      <Name>UmbracoJAM.Feature.UmbracoHeadless</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

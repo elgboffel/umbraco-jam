@@ -2,7 +2,7 @@
 using System.Net.Http.Headers;
 using System.Web.Http.Filters;
 
-namespace UmbracoJAM.Feature.Headless.Attributes
+namespace UmbracoJAM.Feature.UmbracoHeadless.Attributes
 {
     public class CacheControlAttribute : ActionFilterAttribute
     {

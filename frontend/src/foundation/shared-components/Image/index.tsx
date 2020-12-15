@@ -1,30 +1,31 @@
-﻿import React from "react";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import Img, { CloudimageProvider } from "react-cloudimage-responsive";
+import React from "react";
+import { default as NextImage } from "next/image";
 
-interface ImageProps {
-  url: string;
-}
+declare const VALID_LOADING_VALUES: readonly ["lazy", "eager", undefined];
+type LoadingValue = typeof VALID_LOADING_VALUES[number];
 
-const Image: React.FC<ImageProps> = ({ url }) => {
-  const cloudimageConfig = {
-    token: "ajtjpeymfo",
-    baseURL: "https://ajtjpeymfo.cloudimg.io/",
-  };
+type ImageProps = {
+  src: string;
+  quality?: number | string;
+  loading?: LoadingValue;
+  alt: string;
+} & (
+  | {
+      width: number | string;
+      height: number | string;
+      unsized?: false;
+    }
+  | {
+      width?: number | string;
+      height?: number | string;
+      unsized: true;
+    }
+);
 
-  if (!url) return <></>;
+const Image: React.FC<ImageProps> = (props: ImageProps) => {
+  if (!props?.src) return <></>;
 
-  return (
-    <CloudimageProvider config={cloudimageConfig}>
-      <Img
-        className="mb-5 object-cover h-full w-full"
-        src={url}
-        alt=""
-        ratio={1.5}
-      />
-    </CloudimageProvider>
-  );
+  return <NextImage {...props} />;
 };
 
 export default Image;
