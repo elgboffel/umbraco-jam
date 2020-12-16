@@ -1,6 +1,6 @@
 ﻿using Umbraco.Core.Composing;
 
-namespace UmbracoJAM.Feature.Headless.Examine
+namespace UmbracoJAM.Feature.UmbracoHeadless.Examine
 {
     //This is a composer which automatically appends the ExamineEvents component
     public class ExamineComposer : ComponentComposer<ExamineEvents>, IUserComposer

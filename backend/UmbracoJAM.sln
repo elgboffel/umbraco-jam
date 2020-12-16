@@ -13,9 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UmbracoJAM", "UmbracoJAM", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoJAM.Project.Web", "src\Project\UmbracoJAM\code\UmbracoJAM.Project.Web.csproj", "{51DE4AAC-CA3E-44E5-ABA6-6D951344C75D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Headless", "Headless", "{F02CAA01-6D78-49C3-8BCC-DEFC812E653D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UmbracoHeadless", "UmbracoHeadless", "{F02CAA01-6D78-49C3-8BCC-DEFC812E653D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoJAM.Feature.Headless", "src\Feature\Headless\code\UmbracoJAM.Feature.Headless.csproj", "{320C2C42-23EC-45E0-B6C5-0C9063245B95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoJAM.Feature.UmbracoHeadless", "src\Feature\Headless\code\UmbracoJAM.Feature.UmbracoHeadless.csproj", "{320C2C42-23EC-45E0-B6C5-0C9063245B95}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{D4695FA5-6DF8-4B21-BD4C-96DD6702613A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbracoJAM.Foundation.Common", "src\Foundation\Common\code\UmbracoJAM.Foundation.Common.csproj", "{8118CA1F-1C8B-4533-8060-B7C8124C9363}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,8 @@ Global
 		{51DE4AAC-CA3E-44E5-ABA6-6D951344C75D} = {62BF30A6-A07C-461F-B704-1096C6542A4B}
 		{F02CAA01-6D78-49C3-8BCC-DEFC812E653D} = {0AD58B6E-A800-4309-A86B-D1529BB3C8C3}
 		{320C2C42-23EC-45E0-B6C5-0C9063245B95} = {F02CAA01-6D78-49C3-8BCC-DEFC812E653D}
+		{D4695FA5-6DF8-4B21-BD4C-96DD6702613A} = {9BCEF6D8-0693-4AA0-A04E-47C4AA71DB39}
+		{8118CA1F-1C8B-4533-8060-B7C8124C9363} = {D4695FA5-6DF8-4B21-BD4C-96DD6702613A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{51DE4AAC-CA3E-44E5-ABA6-6D951344C75D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -43,5 +49,9 @@ Global
 		{320C2C42-23EC-45E0-B6C5-0C9063245B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{320C2C42-23EC-45E0-B6C5-0C9063245B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{320C2C42-23EC-45E0-B6C5-0C9063245B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8118CA1F-1C8B-4533-8060-B7C8124C9363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8118CA1F-1C8B-4533-8060-B7C8124C9363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8118CA1F-1C8B-4533-8060-B7C8124C9363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8118CA1F-1C8B-4533-8060-B7C8124C9363}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

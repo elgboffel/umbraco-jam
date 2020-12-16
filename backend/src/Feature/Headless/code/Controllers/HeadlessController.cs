@@ -11,10 +11,10 @@ using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
 using Umbraco.Web.WebApi;
-using UmbracoJAM.Feature.Headless.Examine;
-using UmbracoJAM.Feature.Headless.Mappers;
+using UmbracoJAM.Feature.UmbracoHeadless.Examine;
+using UmbracoJAM.Feature.UmbracoHeadless.Mappers;
 
-namespace UmbracoJAM.Feature.Headless.Controllers
+namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
 {
     [PluginController("Api")]
     public class HeadlessController : UmbracoApiController
@@ -100,7 +100,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult<IEnumerable<IEnumerable<string>>> GetAllPaths()
+        public JsonResult<IEnumerable<UmbracoContentMapper.IPublishedPath>> GetAllPaths()
         {
             var contentAtRoot = _context.UmbracoContext.Content.GetAtRoot();
             
@@ -111,7 +111,7 @@ namespace UmbracoJAM.Feature.Headless.Controllers
                 .DescendantsOrSelf<IPublishedContent>()
                 .Where(x => x.TemplateId > 0)
                 .Select(x => _contentMapper.MapPublishedPath(x))
-                .Where(x => x.Any());
+                .Where(x => x != null);
 
             return Json(pathsList, _camelCasingSerializerSettings);
         }

@@ -1,7 +1,7 @@
 ﻿using Examine;
 using Umbraco.Core;
     
-namespace UmbracoJAM.Feature.Headless.Examine
+namespace UmbracoJAM.Feature.UmbracoHeadless.Examine
 {
     public static class ExamineSearchers
     {

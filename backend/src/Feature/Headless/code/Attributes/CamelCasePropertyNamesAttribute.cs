@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using ActionFilterAttribute = System.Web.Http.Filters.ActionFilterAttribute;
 
-namespace UmbracoJAM.Feature.Headless.Attributes
+namespace UmbracoJAM.Feature.UmbracoHeadless.Attributes
 {
     public class CamelCasePropertyNamesAttribute : ActionFilterAttribute
     {

@@ -16,7 +16,7 @@ const FrontPage: React.FC<FrontPageProps> = ({ media, heading }) => {
 
   return (
     <article className="container mx-auto px-4">
-      {media && <Image url={media} />}
+      {media && <Image src={media} width={1280} height={600} alt="" />}
       <h1 className="mt-10">{heading}</h1>
     </article>
   );

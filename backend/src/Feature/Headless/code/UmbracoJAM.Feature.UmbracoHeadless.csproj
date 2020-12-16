@@ -7,8 +7,8 @@
     <ProjectGuid>{320C2C42-23EC-45E0-B6C5-0C9063245B95}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UmbracoJAM.Feature.Headless</RootNamespace>
-    <AssemblyName>UmbracoJAM.Feature.Headless</AssemblyName>
+    <RootNamespace>UmbracoJAM.Feature.UmbracoHeadless</RootNamespace>
+    <AssemblyName>UmbracoJAM.Feature.UmbracoHeadless</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -301,6 +301,12 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Foundation\Common\code\UmbracoJAM.Foundation.Common.csproj">
+      <Project>{8118ca1f-1c8b-4533-8060-b7c8124c9363}</Project>
+      <Name>UmbracoJAM.Foundation.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\..\..\..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />

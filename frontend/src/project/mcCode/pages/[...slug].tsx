@@ -10,7 +10,6 @@ import SiteLayout from "@feature/Layouts/SiteLayout";
 const Page: NextPage<BaseContent> = ({ template, context, ...props }) => {
   const router = useRouter();
   const templates = Templates;
-  console.log(template, props);
   if (router.isFallback) return <div>Loading...</div>;
 
   const Template = templates[template];
@@ -26,13 +25,26 @@ const Page: NextPage<BaseContent> = ({ template, context, ...props }) => {
 
 type Paths = string | { params: ParsedUrlQuery };
 
-const toPaths = (array: Array<string>) => {
-  return array.reduce((paths: Paths[], path: string) => {
-    if (!path) return paths;
+type PublishedPath = {
+  slug: string[];
+} & (
+  | {
+      id?: number;
+      url: string;
+    }
+  | {
+      url?: string;
+      id: number;
+    }
+);
+
+const toParams = (array: Array<PublishedPath>) => {
+  return array.reduce((paths: Paths[], publishedPath: PublishedPath) => {
+    if (!publishedPath) return paths;
 
     paths.push({
       params: {
-        slug: path,
+        slug: publishedPath?.slug,
       },
     });
 
@@ -44,8 +56,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const content = await fetch(
     `${process.env.NEXT_PUBLIC_UMBRACO_BASE_PATH}/Umbraco/Api/Headless/GetAllPaths`
   );
-  const json = (await content.json()) as Array<string>;
-  const paths = toPaths(json);
+  const result = (await content.json()) as Array<PublishedPath>;
+  const paths = toParams(result);
 
   return {
     paths,
@@ -55,6 +67,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const url = toUrlString(params?.slug);
+
   const content = await fetch(
     `${process.env.NEXT_PUBLIC_UMBRACO_BASE_PATH}/Umbraco/Api/Headless/GetContentByRoute?route=${url}`
   );
