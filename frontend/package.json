@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/mcCode/server/index.js",
   "engines": {
-    "node": "10"
+    "node": "12"
   },
   "config": {
     "project": {
