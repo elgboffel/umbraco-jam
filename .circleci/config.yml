@@ -37,18 +37,18 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
     working_directory: ~/repo
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-nuget-deps-{{ checksum "./backend/src/Project/UmbracoJAM/code/packages.config" }}
-            # Find the most recently generated cache used
-            - v1-nuget-deps-
+#      - restore_cache:
+#          keys:
+#            - v1-nuget-deps-{{ checksum "./backend/src/Project/UmbracoJAM/code/packages.config" }}
+#            # Find the most recently generated cache used
+#            - v1-nuget-deps-
       - run:
           name: "Running NuGet"
           command: nuget restore $env:PATH_SOLUTION
-      - save_cache:
-          key: v1-nuget-deps-{{ checksum "./backend/src/Project/UmbracoJAM/code/packages.config" }}
-          paths:
-            - backend/packages
+#      - save_cache:
+#          key: v1-nuget-deps-{{ checksum "./backend/src/Project/UmbracoJAM/code/packages.config" }}
+#          paths:
+#            - backend/packages
       - run:
           name: "Building and publishing"
           command: msbuild $env:PATH_PROJECT /p:VisualStudioVersion=16.0 /p:DeployOnBuild=true /p:PublishProfile=Properties/PublishProfiles/Production.pubxml /p:Password=$env:PRODUCTION_PASS
