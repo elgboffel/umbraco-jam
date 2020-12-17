@@ -50,7 +50,7 @@ const nextConfig = {
     deviceSizes: [420, 620, 768, 1024, 1280],
     imageSizes: [400],
     iconSizes: [],
-    domains: ["local.umbraco-jam.dk"],
+    domains: [process.env.NEXT_PUBLIC_UMBRACO_BASE_PATH],
     path: "/_next/image",
     loader: "default",
   },
