@@ -51,7 +51,7 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
 #            - backend/packages
       - run:
           name: "Building and publishing"
-          command: msbuild $env:PATH_PROJECT /p:VisualStudioVersion=16.0 /p:DeployOnBuild=false /p:PublishProfile=Properties/PublishProfiles/Production.pubxml /p:Password=$env:PRODUCTION_PASS
+          command: msbuild $env:PATH_PROJECT /p:VisualStudioVersion=16.0 /p:DeployOnBuild=true /p:PublishProfile=Properties/PublishProfiles/Production.pubxml /p:Password=$env:PRODUCTION_PASS
 workflows:
   deploy: # this is the name of our workflow
     jobs: # and here we list the jobs we are going to run.

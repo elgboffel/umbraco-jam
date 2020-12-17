@@ -304,7 +304,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Foundation\Common\code\UmbracoJAM.Foundation.Common.csproj">
-      <Project>{8118ca1f-1c8b-4533-8060-b7c8124c9363}</Project>
+      <Project>{b4bdc530-0805-484d-88d1-f2287990c552}</Project>
       <Name>UmbracoJAM.Foundation.Common</Name>
     </ProjectReference>
   </ItemGroup>
