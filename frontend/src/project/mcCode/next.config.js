@@ -14,7 +14,10 @@ const nextConfig = {
     //   test: /\.md$/,
     //   use: "raw-loader"
     // });
-
+    console.log(
+      "Getting data from: ",
+      process.env.NEXT_PUBLIC_UMBRACO_BASE_PATH
+    );
     /* Resolve alias */
     config.resolve.alias["~"] = path.resolve(`${__dirname}/src`);
     config.resolve.alias["@feature"] = path.resolve(`${__dirname}/src/feature`);
