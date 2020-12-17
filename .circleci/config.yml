@@ -53,15 +53,15 @@ jobs: # we now have TWO jobs, so that a workflow can coordinate them!
           name: "Building and publishing"
           command: msbuild $env:PATH_PROJECT /p:VisualStudioVersion=16.0 /p:DeployOnBuild=true /p:PublishProfile=Properties/PublishProfiles/Production.pubxml /p:Password=$env:PRODUCTION_PASS
 workflows:
-  frontend_and_backend: # this is the name of our workflow
+  deploy: # this is the name of our workflow
     jobs: # and here we list the jobs we are going to run.
-      - frontend:
+      - backend:
           filters:
             branches:
               only: master
-      - backend:
+      - frontend:
           requires:
-            - frontend
+            - backend
           filters:
             branches:
               only: master
