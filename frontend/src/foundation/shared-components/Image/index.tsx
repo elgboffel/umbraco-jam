@@ -23,7 +23,8 @@ type ImageProps = {
 );
 
 const Image: React.FC<ImageProps> = (props: ImageProps) => {
-  if (!props?.src) return <></>;
+  if (!props?.src || (!props?.width && !props?.height) || !!props?.unsized)
+    return <></>;
 
   return <NextImage {...props} />;
 };
