@@ -41,8 +41,9 @@ const nextConfig = {
 
     return config;
   },
+  target: "serverless",
   distDir: "../../../dist/mcCode/client",
-  trailingSlash: true,
+  trailingSlash: false,
   onDemandEntries: {
     // period (in ms) where the server will keep pages in the buffer
     maxInactiveAge: 25 * 1000,
