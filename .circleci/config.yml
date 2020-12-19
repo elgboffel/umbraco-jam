@@ -1,35 +1,7 @@
 version: 2.1
 orbs:
   win: circleci/windows@2.2.0
-  node: circleci/node@4.0.0
 jobs: # we now have TWO jobs, so that a workflow can coordinate them!
-  frontend: # This is our first job
-    docker:
-      - image: circleci/node:12.16.1
-    working_directory: ~/repo
-    steps:
-      - checkout
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-npm-deps-{{ checksum "./frontend/package.json" }}
-            # Find the most recently generated cache used
-            - v1-npm-deps-
-      - run:
-          working_directory: ~/repo/frontend
-          command: npm install
-      - run:
-          working_directory: ~/repo/frontend
-          command: npm run build
-          
-      - save_cache:
-          key: v1-npm-deps-{{ checksum "./frontend/package.json" }}
-          paths:
-            - frontend/node_modules            
-          
-      - run:
-          working_directory: ~/repo/frontend
-          command: npm run deploy:firebase --token=$FIREBASE_TOKEN
   backend: # This is our second job
     executor:
       name: win/default
@@ -56,12 +28,6 @@ workflows:
   deploy: # this is the name of our workflow
     jobs: # and here we list the jobs we are going to run.
       - backend:
-          filters:
-            branches:
-              only: master
-      - frontend:
-          requires:
-            - backend
           filters:
             branches:
               only: master

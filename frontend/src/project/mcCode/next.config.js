@@ -1,7 +1,5 @@
 const compose = require("next-compose-plugins");
-// const withSass = require("@zeit/next-sass");
 const path = require("path");
-// const siteMap = require("../../../site/siteMap");
 const withTM = require("next-transpile-modules")([
   "./src/feature",
   "./src/foundation",
@@ -9,11 +7,6 @@ const withTM = require("next-transpile-modules")([
 
 const nextConfig = {
   webpack: function (config, { dev }) {
-    /* enable to read .md files */
-    // config.module.rules.push({
-    //   test: /\.md$/,
-    //   use: "raw-loader"
-    // });
 
     /* Resolve alias */
     config.resolve.alias["~"] = path.resolve(`${__dirname}/src`);
