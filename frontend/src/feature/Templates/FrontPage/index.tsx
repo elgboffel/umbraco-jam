@@ -15,9 +15,9 @@ const FrontPage: React.FC<FrontPageProps> = ({ media, heading }) => {
   if (router.isFallback) return <div>Spinner...</div>;
 
   return (
-    <article className="container mx-auto px-4">
+    <article>
       {media && <Image src={media} width={1280} height={600} alt="" />}
-      <h1 className="mt-10">{heading}</h1>
+      <h1>{heading}</h1>
     </article>
   );
 };

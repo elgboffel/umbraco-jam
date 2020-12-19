@@ -1,6 +1,5 @@
 import React from "react";
 import App from "next/app";
-import "@foundation/scss/index.scss";
 
 class Site extends App {
   render() {
