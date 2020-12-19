@@ -41,7 +41,6 @@ const nextConfig = {
 
     return config;
   },
-  target: "serverless",
   distDir: "../../../dist/mcCode/client",
   trailingSlash: false,
   onDemandEntries: {
