@@ -55,36 +55,6 @@ const nextConfig = {
     path: "/_next/image",
     loader: "default",
   },
-  // Old way of ssg before getStaticProps and getStaticPaths
-  // exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
-  //
-  //   try {
-  //
-  //     return Object.values(siteMap).reduce((paths, page) => {
-  //
-  //       paths[`${page.url}`] = {page: `/${page.template}`, query: {path: `${page.url}`, id: `${page.id}`}};
-  //
-  //       return paths;
-  //     }, {})
-  //
-  //   } catch (err) {
-  //     console.error(err);
-  //     return false;
-  //   }
-  // }
 };
 
-module.exports = compose(
-  [
-    withTM,
-    // Setup css modules with sass
-    //[withSass, {
-    //   cssModules: true,
-    //   cssLoaderOptions: {
-    //     importLoaders: 1,
-    //     localIdentName: "[local]___[hash:base64:5]",
-    //   }
-    // }]
-  ],
-  nextConfig
-);
+module.exports = compose([withTM], nextConfig);
