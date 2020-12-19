@@ -10,7 +10,6 @@
     "project": {
       "mccode": {
         "path": "./src/project/mcCode",
-        "pathFirebase": "./firebase.json",
         "pathServer": "./src/project/mcCode/tsconfig-server.json"
       }
     }
@@ -19,18 +18,10 @@
     "eslint": "eslint src",
     "clean": "rimraf dist",
     "dev": "next dev %npm_package_config_project_mccode_path%",
-    "build": "npm run build:next && npm run build:server",
+    "build": "npm run build:next",
     "build:markdown": "ts-node ./build/umbraco-markdown",
     "build:next": "npm run clean && next build ./src/project/mcCode",
-    "build:server": "tsc --project ./src/project/mcCode/tsconfig-server.json --outDir dist/mcCode/server",
-    "start": "next start %npm_package_config_project_mccode_path%",
-    "serve:firebase": "firebase serve --config %npm_package_config_project_mccode_pathFirebase% --port=5003 --only hosting,functions",
-    "deploy:firebase": "firebase deploy --only hosting:mccode,functions"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsc --noEmit --skipLibCheck && lint-staged"
-    }
+    "start": "next start %npm_package_config_project_mccode_path%"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -62,15 +53,12 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.3",
     "eslint-plugin-react-hooks": "^4.1.2",
-    "firebase-tools": "^8.9.2",
     "fs-extra": "^9.0.1",
-    "husky": "^4.3.0",
     "js-yaml": "^3.13.1",
     "lint-staged": "^10.4.0",
     "mkdirp": "^1.0.3",
     "next-compose-plugins": "^2.2.0",
     "next-transpile-modules": "^4.0.2",
-    "node-sass": "^4.13.0",
     "postcss-custom-properties": "^9.1.1",
     "postcss-import": "^12.0.1",
     "postcss-nested": "^4.2.3",
@@ -83,12 +71,9 @@
     "typescript": "^4.0.3"
   },
   "dependencies": {
-    "firebase": "^7.19.1",
-    "firebase-admin": "^9.1.1",
-    "firebase-functions": "^3.11.0",
     "framer-motion": "^1.7.0",
     "gray-matter": "^4.0.2",
-    "next": "^10.0.0",
+    "next": "^10.0.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "styled-components": "^5.2.0"
