@@ -29,7 +29,16 @@ const Article: React.FC<ArticleProps> = ({
 
   return (
     <article>
-      {media && <Image src={media} width={1280} height={600} alt="" />}
+      {media && (
+        <Image
+          src={media}
+          layout="responsive"
+          width={1600}
+          height={400}
+          objectFit="cover"
+          alt=""
+        />
+      )}
       <h1>{heading}</h1>
       <div dangerouslySetInnerHTML={{ __html: bodyText }} />
       {singleLink && (

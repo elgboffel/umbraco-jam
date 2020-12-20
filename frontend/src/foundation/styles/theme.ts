@@ -1,7 +1,7 @@
 ﻿import { Theme } from "theme-ui";
 
 export const theme: Theme = {
-  breakpoints: ["576px", "1040px"],
+  breakpoints: ["576px", "1040px", "1600px"],
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   fonts: {
     body:
