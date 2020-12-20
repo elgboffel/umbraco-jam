@@ -7,7 +7,6 @@ const withTM = require("next-transpile-modules")([
 
 const nextConfig = {
   webpack: function (config, { dev }) {
-
     /* Resolve alias */
     config.resolve.alias["~"] = path.resolve(`${__dirname}/src`);
     config.resolve.alias["@feature"] = path.resolve(`${__dirname}/src/feature`);
@@ -41,10 +40,13 @@ const nextConfig = {
     pagesBufferLength: 2,
   },
   images: {
-    deviceSizes: [420, 620, 768, 1024, 1280],
+    deviceSizes: [576, 1040, 1600],
     imageSizes: [400],
     iconSizes: [],
-    domains: [process.env.NEXT_PUBLIC_UMBRACO_BASE_PATH],
+    domains: [
+      process.env.NEXT_PUBLIC_UMBRACO_BASE_PATH,
+      "local.umbraco-jam.dk",
+    ],
     path: "/_next/image",
     loader: "default",
   },

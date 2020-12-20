@@ -1,6 +1,7 @@
-﻿import React from "react";
+﻿/** @jsx jsx */
+import React from "react";
 import Image from "@foundation/shared-components/Image";
-
+import { jsx, SxStyleProp } from "theme-ui";
 interface Carousel {
   slider: CarouselItem[];
 }
@@ -11,16 +12,31 @@ interface CarouselItem {
   text: string;
 }
 
+const wrapStyles: SxStyleProp = {
+  backgroundColor: "primary",
+};
+
+const itemStyles: SxStyleProp = {
+  maxWidth: "700px",
+};
+
 const Carousel: React.FC<Carousel> = ({ slider }) => {
   if (!slider) return null;
 
   return (
     <div>
       {slider.map(({ key, media, text }) => (
-        <div key={key}>
+        <div sx={{ ...wrapStyles }} key={key}>
           <div>{text}</div>
-          <div>
-            <Image src={media} alt="image" width={400} height={400} />
+          <div sx={{ ...itemStyles }}>
+            <Image
+              src={media}
+              alt="image"
+              layout="intrinsic"
+              objectFit="cover"
+              width={700}
+              height={400}
+            />
           </div>
         </div>
       ))}
