@@ -40,7 +40,7 @@ const nextConfig = {
     pagesBufferLength: 2,
   },
   images: {
-    deviceSizes: [576, 1040, 1280, 1600],
+    deviceSizes: [576, 1040],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 600, 745],
     iconSizes: [],
     domains: ["pixelpushr.dk", "local.umbraco-jam.dk"],

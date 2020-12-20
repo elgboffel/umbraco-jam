@@ -32,8 +32,7 @@ const Carousel: React.FC<Carousel> = ({ slider }) => {
             <Image
               src={media}
               alt="image"
-              layout="intrinsic"
-              objectFit="cover"
+              layout="responsive"
               width={600}
               height={400}
             />

@@ -411,7 +411,6 @@
     <Content Include="Config\serilog.user.config" />
     <Content Include="Config\serilog.config" />
     <None Include="Config\uSync8.config" />
-    <Content Include="Media\Web.config" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Web.config">
