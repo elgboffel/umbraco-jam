@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Examine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Umbraco.Core.Logging;
 using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Web;
 using Umbraco.Web.Mvc;
@@ -49,6 +50,8 @@ namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
                 throw new NoNullAllowedException(nameof(content));
 
             var mappedContent = _contentMapper.MapPublishedContent(content, true);
+            
+            Logger.Info<HeadlessController>("Action called: GetContentById");
 
             return Json(mappedContent, _camelCasingSerializerSettings);
         }
@@ -70,7 +73,7 @@ namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
                 throw new NoNullAllowedException(nameof(content));
             
             var mappedContent = _contentMapper.MapPublishedContent(content, true);
-
+            Logger.Info<HeadlessController>("Action called: GetContentByRoute");
             return Json(mappedContent, _camelCasingSerializerSettings);
         }
         
@@ -91,6 +94,8 @@ namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
                 from content in contentAtRoot.DescendantsOrSelf<IPublishedContent>()
                 where content.TemplateId > 0
                 select _contentMapper.MapPublishedContent(content, true);
+            
+            Logger.Info<HeadlessController>("Action called: GetAllContent");
 
             return Json(allContent, _camelCasingSerializerSettings);
         }
@@ -112,6 +117,8 @@ namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
                 .Where(x => x.TemplateId > 0)
                 .Select(x => _contentMapper.MapPublishedPath(x))
                 .Where(x => x != null);
+            
+            Logger.Info<HeadlessController>("Action called: GetAllPaths");
 
             return Json(pathsList, _camelCasingSerializerSettings);
         }
