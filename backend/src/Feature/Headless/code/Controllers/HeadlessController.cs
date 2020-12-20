@@ -51,7 +51,7 @@ namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
 
             var mappedContent = _contentMapper.MapPublishedContent(content, true);
             
-            Logger.Info<HeadlessController>("Action called: GetContentById");
+            Logger.Info<HeadlessController>("Action called: GetContentById", id);
 
             return Json(mappedContent, _camelCasingSerializerSettings);
         }
@@ -73,7 +73,9 @@ namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
                 throw new NoNullAllowedException(nameof(content));
             
             var mappedContent = _contentMapper.MapPublishedContent(content, true);
-            Logger.Info<HeadlessController>("Action called: GetContentByRoute - {route}", route);
+            
+            Logger.Info<HeadlessController>("Action called: GetContentByRoute", route);
+            
             return Json(mappedContent, _camelCasingSerializerSettings);
         }
         
@@ -116,7 +118,8 @@ namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
                 .DescendantsOrSelf<IPublishedContent>()
                 .Where(x => x.TemplateId > 0)
                 .Select(x => _contentMapper.MapPublishedPath(x))
-                .Where(x => x != null);
+                .Where(x => x != null)
+                .Take(1);
             
             Logger.Info<HeadlessController>("Action called: GetAllPaths");
 
