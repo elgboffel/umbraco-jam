@@ -43,10 +43,7 @@ const nextConfig = {
     deviceSizes: [576, 1040, 1280, 1600],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 745],
     iconSizes: [],
-    domains: [
-      process.env.NEXT_PUBLIC_UMBRACO_BASE_PATH,
-      "local.umbraco-jam.dk",
-    ],
+    domains: ["pixelpushr.dk", "local.umbraco-jam.dk"],
     loader: "default",
   },
   async redirects() {
