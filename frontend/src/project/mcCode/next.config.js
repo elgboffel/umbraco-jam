@@ -46,6 +46,19 @@ const nextConfig = {
     domains: ["pixelpushr.dk", "local.umbraco-jam.dk"],
     loader: "default",
   },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: "/:slug*",
+  //       headers: [
+  //         {
+  //           key: "Cache-Control",
+  //           value: "max-age=31536000",
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
   async redirects() {
     return [
       {
