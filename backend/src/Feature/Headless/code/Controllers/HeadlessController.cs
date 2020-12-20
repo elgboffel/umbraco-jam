@@ -73,7 +73,7 @@ namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
                 throw new NoNullAllowedException(nameof(content));
             
             var mappedContent = _contentMapper.MapPublishedContent(content, true);
-            Logger.Info<HeadlessController>("Action called: GetContentByRoute");
+            Logger.Info<HeadlessController>("Action called: GetContentByRoute - {route}", route);
             return Json(mappedContent, _camelCasingSerializerSettings);
         }
         
