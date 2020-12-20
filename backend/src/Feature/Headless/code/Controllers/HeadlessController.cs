@@ -51,7 +51,7 @@ namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
 
             var mappedContent = _contentMapper.MapPublishedContent(content, true);
             
-            Logger.Info<HeadlessController>("Action called: GetContentById", id);
+            Logger.Info<HeadlessController>("Action called: GetContentById {id}", id);
 
             return Json(mappedContent, _camelCasingSerializerSettings);
         }
@@ -74,7 +74,7 @@ namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
             
             var mappedContent = _contentMapper.MapPublishedContent(content, true);
             
-            Logger.Info<HeadlessController>("Action called: GetContentByRoute", route);
+            Logger.Info<HeadlessController>("Action called: GetContentByRoute {route}", route);
             
             return Json(mappedContent, _camelCasingSerializerSettings);
         }
