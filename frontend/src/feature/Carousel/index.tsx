@@ -17,7 +17,7 @@ const wrapStyles: SxStyleProp = {
 };
 
 const itemStyles: SxStyleProp = {
-  maxWidth: "700px",
+  maxWidth: "745px",
 };
 
 const Carousel: React.FC<Carousel> = ({ slider }) => {
@@ -32,9 +32,9 @@ const Carousel: React.FC<Carousel> = ({ slider }) => {
             <Image
               src={media}
               alt="image"
-              layout="intrinsic"
+              layout="responsive"
               objectFit="cover"
-              width={700}
+              width={745}
               height={400}
             />
           </div>
