@@ -33,8 +33,8 @@ const Article: React.FC<ArticleProps> = ({
         <Image
           src={media}
           layout="responsive"
-          width={1600}
-          height={400}
+          width={1040}
+          height={600}
           objectFit="cover"
           alt=""
         />
