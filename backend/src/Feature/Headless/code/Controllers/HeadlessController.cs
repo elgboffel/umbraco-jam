@@ -118,8 +118,7 @@ namespace UmbracoJAM.Feature.UmbracoHeadless.Controllers
                 .DescendantsOrSelf<IPublishedContent>()
                 .Where(x => x.TemplateId > 0)
                 .Select(x => _contentMapper.MapPublishedPath(x))
-                .Where(x => x != null)
-                .Take(1);
+                .Where(x => x != null);
             
             Logger.Info<HeadlessController>("Action called: GetAllPaths");
 

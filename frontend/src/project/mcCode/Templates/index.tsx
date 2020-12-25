@@ -1,6 +1,6 @@
-import Article from "@feature/Templates/Article";
+import Article from "./Article";
 import React from "react";
-import FrontPage from "@feature/Templates/FrontPage";
+import FrontPage from "./FrontPage";
 
 interface TemplatesType {
   [key: string]: React.FC<any>;

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { ParsedUrlQuery } from "querystring";
 import { BaseContent } from "@foundation/umbracoContent/typings";
-import { Templates } from "@feature/Templates";
+import { Templates } from "../Templates";
 import { toUrlString } from "@foundation/utils/toUrlString";
 import SiteLayout from "@feature/Layouts/SiteLayout";
 
